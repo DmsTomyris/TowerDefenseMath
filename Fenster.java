@@ -5,14 +5,16 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
 class Fenster extends JFrame implements WindowListener, ActionListener,  Form.PanelListener{
-	private Form panel;
-    private JButton Be;
+	private Form panel[];
+    
     
     private int framewidth = 700;
     private int frameheight = 500;
@@ -26,45 +28,64 @@ class Fenster extends JFrame implements WindowListener, ActionListener,  Form.Pa
 	public JTextField Tg;
 	
 	
-	
+	public int w = 0; //while counter
+	public int a = 100; //anzahl panel
 
 	public Fenster(String titel) {
 		super(titel);
+		//quality of life
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setResizable(false);
+		this.setUndecorated(true); // Entfernt die Titelleiste
 		this.setLayout(null); // keine referenz auf einen Layout Manager gut so weil wir machen kein HTML in der Grundschule mit blinken und so
 		this.setSize(framewidth, frameheight);
-        panel = new Form();
-        panel.setPanelListener(this); //interface auf Fenster aktivieren
-        this.add(panel); // JPanel zum JFrame hinzufügen
-		this.setVisible(true);
- 
-		// Hintergrundbild einfügen
-		//String bildPfad = "C:\\Users\\Teo Helmer\\eclipse-workspace\\Fensterprogramm\\src\\ressources\\png-clipart-dream-river-dream-river-thumbnail.png"; 
-		//ImageIcon icon = new ImageIcon(bildPfad);
-		//JLabel label = new JLabel(icon);  // Bild setzen
-		//label.setText("Mulm"); // Optional: Text hinzufügen
-		//label.setSize(500, 500); // Größe setzen
-		//label.setLocation(0, 0); // Position setzen
-		//this.add(label);
-		//Hintergrundbild einfügen
+        panel = new Form[a];
+        
+        System.out.println(Main.class.getResource("/images/Map1.png"));
+        ImageIcon icon = new ImageIcon("Map1.png");
+		JLabel label = new JLabel(icon);  // Bild setzen
+		label.setText("Mulm"); // Optional: Text hinzufügen
+		label.setSize(this.getWidth(), this.getHeight()); // Größe setzen
+		label.setLocation(0, 0); // Position setzen
+		this.add(label);
+		label.setVisible(true);
+		
+        while (w<a)   {
+            panel[w] = new Form(w);
+            panel[w].setPanelListener(this); //interface auf Fenster aktivieren
+            this.add(panel[w]); // JPanel zum JFrame hinzufügen
+    		this.setVisible(true);
+    		try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		w+=1;
+    		
+            }
+		
+        
 		
 		
 	
 	}
 	
 	
-	public void onButtonClicked() {// Erstellt Eingabefeld wenn Button gedrückt wird
+	public void onButtonClicked(int w) {// Erstellt Eingabefeld wenn Button gedrückt wird
         	Tg=new JTextField();
-    		Tg.setText("500");
+    		Tg.setText("625");
     		Tg.setLocation(10, 10);
     		Tg.setSize(300, 20);
     		this.add(Tg);
     		Tg.addActionListener(e -> {
-    			System.out.println(Tg.getText()+" "+(panel.g*panel.h));
+    			System.out.println(Tg.getText()+" "+(panel[w].g*panel[w].h));
     			this.remove(Tg); // Entfernen
-    			panel.addButton();
-    			panel.defeated();
-    			if(Integer.parseInt(Tg.getText())==panel.g*panel.h) {
-    				this.remove(panel);
+    			panel[w].Be.setVisible(true);
+    			
+    			if(Integer.parseInt(Tg.getText())==panel[w].g*panel[w].h) {
+    				this.remove(panel[w]);
     			}
     			this.revalidate(); // Layout aktualisieren
     			this.repaint();
@@ -133,7 +154,9 @@ class Fenster extends JFrame implements WindowListener, ActionListener,  Form.Pa
 		
 
 		}
+
+
+	
 		
 		
 	}
-//Mulm
