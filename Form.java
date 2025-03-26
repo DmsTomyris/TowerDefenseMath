@@ -20,20 +20,20 @@ public class Form extends JPanel implements WindowListener, ActionListener{
 
 
 	
-	public Form() {
+	public Form(int w) {
 		this.setLayout(null);
         this.setBackground(Color.BLUE);
         this.setSize(g, h);
         this.setLocation(x, y);
         //this.add(panel);
-        this.setVisible(true);
-        movePanelSmoothThread(300, 50, 10);
+        movePanelSmoothThread(1000, 200, 20);
     	repaint();
     	this.setVisible(true);
-    	addButton();
+    	addButton(w);
 	}
 	
-	public void addButton() {
+	public void addButton(int w) {
+	System.out.println(w);
 	Be = new JButton();
 	Be.setLayout(null);
     Be.setSize(g, h);
@@ -46,10 +46,10 @@ public class Form extends JPanel implements WindowListener, ActionListener{
 	this.add(Be);
 	Be.addActionListener(e -> {
         if (listener != null) {
-            listener.onButtonClicked(); // Event auslösen
-        
+            listener.onButtonClicked(w); // Event auslösen
+            
         }
-        this.remove(Be);
+        Be.setVisible(false);
 		this.revalidate();
 		this.repaint();
     });
@@ -88,7 +88,7 @@ public class Form extends JPanel implements WindowListener, ActionListener{
 
     // Interface für das Event
     public interface PanelListener {
-        void onButtonClicked();
+        void onButtonClicked(int w);
     }
 	
 	
@@ -107,8 +107,7 @@ public class Form extends JPanel implements WindowListener, ActionListener{
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		System.exit(0);
 	}
 
 	@Override
