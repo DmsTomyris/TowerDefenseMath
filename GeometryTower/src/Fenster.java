@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Component;
 import java.awt.event.*;
 import java.util.Random;
 
@@ -10,7 +12,7 @@ private int frameheight = 800;
 
 public JTextField Tg;
 public int w = 0; // while counter
-public int a = 10; // Anzahl der Panels
+public int a = 2; // Anzahl der Panels
 
 private Random random;
 
@@ -64,40 +66,7 @@ w += 1;
 
 }
 
-public void onButtonClicked(int w) {
-System.out.print("mul");
-Tg = new JTextField();
-Tg.setText("625");
-Tg.setBounds(10, 10, 300, 20);
-layeredPane.add(Tg, Integer.valueOf(1)); // Panels auf höhere Ebene setzen
-Tg.addActionListener(e -> {
-System.out.println(Tg.getText() + " " + (panel[w].g * panel[w].h));
-layeredPane.remove(Tg);
-panel[w].Be.setVisible(true);
 
-if  (panel[w].shapeType == 0) {
-	if (Integer.parseInt(Tg.getText()) == panel[w].g * panel[w].h){
-		layeredPane.remove(panel[w]);
-		GamePanel.setGeld(100);
-		}
-	}
-else if (panel[w].shapeType == 1){
-	if (Integer.parseInt(Tg.getText()) == panel[w].g * panel[w].h*0.5){
-		layeredPane.remove(panel[w]);
-		GamePanel.setGeld(100);
-		}
-	}
-else if (panel[w].shapeType == 2) {
-	if (Integer.parseInt(Tg.getText()) == panel[w].h*panel[w].h*3){
-		layeredPane.remove(panel[w]);
-		GamePanel.setGeld(100);
-		}
-	}
-
-this.revalidate();
-this.repaint();
-});
-}
 
 @Override
 public void windowOpened(WindowEvent e) {}
@@ -124,4 +93,12 @@ public void windowDeactivated(WindowEvent e) {}
 
 @Override
 public void actionPerformed(ActionEvent e) {}
+
+
+
+@Override
+public void onButtonClicked(int w) {
+	// TODO Auto-generated method stub
+	
+}
 }

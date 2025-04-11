@@ -7,7 +7,6 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import javax.swing.JLabel;
 import java.util.Random;
 
 
@@ -21,6 +20,8 @@ private JTextField Tg;
 private JLabel En1;
 private JLabel En2;
 private Random random;
+
+public boolean defeated = false;
 
 
 private int s = 10; //speed
@@ -104,6 +105,55 @@ else if (was == 2) {
 
 }
 
+public void onButtonClicked(int w) {
+    Tg = new JTextField();
+    Tg.setText("625");
+    Tg.setBounds(10, 10, 300, 20);
+    this.add(Tg); // <- wichtig: ohne Layer-Index!
+    this.revalidate(); // <- neu
+    this.repaint();    // <- neu
+
+    Tg.addActionListener(e -> {
+        System.out.println(Tg.getText() + " " + (this.g * this.h));
+        this.remove(Tg);
+        Be.setVisible(true);
+
+        if  (this.shapeType == 0) {
+            if (Integer.parseInt(Tg.getText()) == this.g * this.h){
+                Container parent = this.getParent(); // <-- wichtiger Fix
+                if (parent != null) {
+                    parent.remove(this); // statt this.remove(this)
+                }
+                this.defeated = true;
+                GamePanel.setGeld(100);
+            }
+        }
+        else if (this.shapeType == 1){
+            if (Integer.parseInt(Tg.getText()) == this.g * this.h * 0.5){
+                Container parent = this.getParent();
+                if (parent != null) {
+                    parent.remove(this);
+                }
+                this.defeated = true;
+                GamePanel.setGeld(100);
+            }
+        }
+        else if (this.shapeType == 2) {
+            if (Integer.parseInt(Tg.getText()) == this.h * this.h * 3){
+                Container parent = this.getParent();
+                if (parent != null) {
+                    parent.remove(this);
+                }
+                this.defeated = true;
+                GamePanel.setGeld(100);
+            }
+        }
+
+        this.revalidate();
+        this.repaint();
+    });
+}
+
 
 public void addButton(int w) {
 Be = new JButton();
@@ -117,15 +167,18 @@ Be.setBorderPainted(false);
 //Button unsichtbar
 this.add(Be);
 
+
 Be.addActionListener(e -> {
 if (listener != null) {
-listener.onButtonClicked(w); // Event auslösen
+onButtonClicked(w); // Event auslösen
+System.out.println("Test");
 
 }
 Be.setVisible(false);
 this.revalidate();
 this.repaint();
 });
+
 }
 
 public void Rechteck() {
@@ -193,7 +246,7 @@ if (y < targetY) y++;
 if (y > targetY) y--;
 
 this.setLocation(x, y);
-if (x==1600) {
+if (x==1600 && defeated == false) {
 System.out.println("you lost");
 GamePanel.setLeben(10);
 }
@@ -209,6 +262,9 @@ onComplete.run();
 }
 }).start();
 }
+
+
+
 
 
 
