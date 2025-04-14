@@ -109,7 +109,7 @@ else if (was == 2) {
 public void onButtonClicked(int w) {
     Tg = new JTextField();
     Tg.setText("625");
-    Tg.setBounds(10, 10, 300, 20);
+    Tg.setBounds(10, 0, 50, 25);
     this.add(Tg); // <- wichtig: ohne Layer-Index!
     this.revalidate(); // <- neu
     this.repaint();    // <- neu
