@@ -36,12 +36,12 @@ private PanelListener listener; // Interface für die Kommunikation
 public Form(int w, int was) {
 	
 	random = new Random();
-	g=random.nextInt(11) + 5;
+	g=random.nextInt(5) + 5;
 	if (!(g % 2 == 0)) {
         g+=1;
     } 
 	random = new Random();
-	h=random.nextInt(11) + 5;
+	h=random.nextInt(5) + 5;
 	
 	
 if (was == 0) {
