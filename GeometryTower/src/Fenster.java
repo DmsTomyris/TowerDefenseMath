@@ -12,7 +12,7 @@ private int frameheight = 800;
 
 public JTextField Tg;
 public int w = 0; // while counter
-public int a = 2; // Anzahl der Panels
+public int a = 20; // Anzahl der Panels
 
 private Random random;
 

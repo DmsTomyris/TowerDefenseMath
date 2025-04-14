@@ -13,6 +13,7 @@ import java.util.Random;
 public class Form extends JPanel implements WindowListener, ActionListener{
 public int g; //public weil brauchen es in Fenster
 public int h; //public weil brauchen es in Fenster.; Mindestens 25 sonst zu klein
+public int scale=8;
 public int x = 0;
 public int y = 505;
 public JButton Be;
@@ -79,14 +80,14 @@ movePanelSmoothThread(1600, 405, s, null);
 
 if (was <2) {
 	En1 = new JLabel(String.valueOf(h));
-	En1.setLocation(0, h*5 /2-10);
+	En1.setLocation(0, h*scale /2-10);
 	En1.setSize(40, 20);
 	En1.setForeground(Color.WHITE);
 	En1.setOpaque(false);
 	this.add(En1);
 
 	En2 = new JLabel(String.valueOf(g));
-	En2.setLocation((g*5-20)/2, h*5-20);
+	En2.setLocation((g*scale-20)/2, h*scale-20);
 	En2.setSize(40, 20);
 	En2.setForeground(Color.WHITE);
 	En2.setOpaque(false);
@@ -95,7 +96,7 @@ if (was <2) {
 }
 else if (was == 2) {
 	En1 = new JLabel(String.valueOf(h));
-	En1.setLocation(0, h*5 /2-10);
+	En1.setLocation(0, h*scale /2-10);
 	En1.setSize(40, 20);
 	En1.setForeground(Color.WHITE);
 	En1.setOpaque(false);
@@ -158,7 +159,7 @@ public void onButtonClicked(int w) {
 public void addButton(int w) {
 Be = new JButton();
 Be.setLayout(null);
-Be.setSize(g*5, h*5);
+Be.setSize(g*scale, h*scale);
 Be.setLocation(0, 0);
 //Button unsichtbar
 Be.setOpaque(false);
@@ -185,7 +186,7 @@ public void Rechteck() {
 this.setLayout(null);
 this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
 this.setOpaque(false); // Hiermit machen wir das Panel transparent
-this.setSize(g * 5, h * 5);
+this.setSize(g * 100, h * 100);
 this.setLocation(x, y);
 }
 
@@ -193,7 +194,7 @@ public void Dreieck() {
 this.setLayout(null);
 this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
 this.setOpaque(false); // Hiermit machen wir das Panel transparent
-this.setSize(g * 5, h * 5);
+this.setSize(g * 100, h * 100);
 this.setLocation(x, y);
 }
 
@@ -201,7 +202,7 @@ public void Kreis() {
 	this.setLayout(null);
 	this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
 	this.setOpaque(false); // Hiermit machen wir das Panel transparent
-	this.setSize(g * 5, h * 5);
+	this.setSize(g * 100, h * 100);
 	this.setLocation(x, y);
 }
 
@@ -212,19 +213,19 @@ super.paintComponent(g); // Ruft paintComponent von JPanel auf, um das Panel zu 
 if (shapeType == 0) {
 // Rechteck zeichnen, wenn shapeType == 0
 g.setColor(Color.RED); // Setze die Farbe des Rechtecks auf rot
-g.fillRect(0, 0, this.g* 5, this.h* 5); // Rechteck an (50, 50) mit der Breite g und der Höhe h zeichnen
+g.fillRect(0, 0, this.g* scale, this.h* scale); // Rechteck an (50, 50) mit der Breite g und der Höhe h zeichnen
 }
 else if (shapeType == 1) {
 // Dreieck zeichnen, wenn shapeType == 1
-int[] xPoints = {0, 0 + this.g / 2* 5, 0 + this.g* 5}; // Koordinaten der Ecken des Dreiecks
-int[] yPoints = {0 + this.h* 5, 0, 0 + this.h* 5}; // Höhe und Basis des Dreiecks
+int[] xPoints = {0, 0 + this.g / 2* scale, 0 + this.g* scale}; // Koordinaten der Ecken des Dreiecks
+int[] yPoints = {0 + this.h* scale, 0, 0 + this.h* scale}; // Höhe und Basis des Dreiecks
 g.setColor(Color.GREEN); // Setze die Farbe des Dreiecks auf grün
 g.fillPolygon(xPoints, yPoints, 3); // Gefülltes Dreieck zeichnen
 }
 else if (shapeType == 2) {
     // Kreis zeichnen, wenn shapeType == 2
     g.setColor(Color.BLUE); // Setze die Farbe des Kreises auf blau
-    g.fillOval(0, 0, this.h*5, this.h*5); // Kreis an (0, 0) mit dem Durchmesser h zeichnen
+    g.fillOval(0, 0, this.h*scale, this.h*scale); // Kreis an (0, 0) mit dem Durchmesser h zeichnen
 }
 }
 
