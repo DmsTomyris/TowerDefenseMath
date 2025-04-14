@@ -108,11 +108,12 @@ else if (was == 2) {
 
 public void onButtonClicked(int w) {
     Tg = new JTextField();
-    Tg.setText("625");
+    
     Tg.setBounds(10, 0, 50, 25);
     this.add(Tg); // <- wichtig: ohne Layer-Index!
     this.revalidate(); // <- neu
     this.repaint();    // <- neu
+    
 
     Tg.addActionListener(e -> {
         System.out.println(Tg.getText() + " " + (this.g * this.h));
@@ -149,10 +150,11 @@ public void onButtonClicked(int w) {
                 GamePanel.setGeld(100);
             }
         }
-
+        
         this.revalidate();
         this.repaint();
     });
+    Tg.requestFocus();
 }
 
 
@@ -173,7 +175,6 @@ Be.addActionListener(e -> {
 if (listener != null) {
 onButtonClicked(w); // Event auslösen
 System.out.println("Test");
-
 }
 Be.setVisible(false);
 this.revalidate();
