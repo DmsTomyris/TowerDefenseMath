@@ -6,6 +6,7 @@ private static int leben;
 private static int geld;
 private static JLabel lebenLabel;
 private static JLabel geldLabel;
+public JButton kmin;
 
 public GamePanel() {
 leben = 100; // Startleben
@@ -39,6 +40,14 @@ add(geldLabel);
 // Setze die Position und Größe des Panels
 this.setBounds(1260, 20, 200, 100); // x, y, width, height
 this.setVisible(true);
+
+kmin = new JButton();
+kmin.setLayout(null);
+kmin.setSize(40, 20);
+kmin.setLocation(0, 0);
+//Button unsichtbar
+kmin.setOpaque(true);
+this.add(kmin);
 }
 
 public static void setLeben(int schaden) {
@@ -58,4 +67,6 @@ return leben;
 public int getGeld() {
 return geld;
 }
+
+
 }
