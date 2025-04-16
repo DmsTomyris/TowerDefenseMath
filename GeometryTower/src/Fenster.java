@@ -47,8 +47,19 @@ layeredPane.add(backgroundPanel, Integer.valueOf(0)); // Hintergrund in Ebene 0 
 
 // Panels auf Ebene 1 hinzufügen
 
+JLabel euleLabel = new JLabel(new ImageIcon("images/Eule1.png"));
+euleLabel.setBounds(0, 0, framewidth, frameheight); // gleiche Größe, gleiche Position
+euleLabel.setHorizontalAlignment(SwingConstants.LEFT);
+euleLabel.setVerticalAlignment(SwingConstants.TOP);
 
-GenerateWave(5, 2);
+JPanel eulePanel = new JPanel(null); // Absolutes Layout
+eulePanel.setBounds(0, 0, framewidth, frameheight);
+eulePanel.add(euleLabel);
+
+layeredPane.add(eulePanel, Integer.valueOf(1)); // Ebene über dem Hintergrund
+
+
+GenerateWave(5, 2); // Gegnerzahl, Gegnerarten
 
 }
 
