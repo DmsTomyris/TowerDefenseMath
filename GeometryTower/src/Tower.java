@@ -21,9 +21,7 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		this.typ=typ;
 		
 		if (typ == 0) {
-			System.out.println("ehre");
 			Minus();
-			System.out.println("alder");
 			}
 		repaint();
 		this.setVisible(true);
@@ -37,7 +35,6 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		this.setOpaque(false); // Hiermit machen wir das Panel transparent
 		this.setSize(radius + 10, radius + 10); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
-		System.out.println("yalla");
 	}
 
 	protected void paintComponent(Graphics g) {

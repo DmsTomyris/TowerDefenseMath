@@ -44,16 +44,9 @@ add(lebenLabel);
 add(geldLabel);
 
 // Setze die Position und Größe des Panels
-this.setBounds(1260, 20, 200, 100); // x, y, width, height
+this.setBounds(1260, 20, 200, 150); // x, y, width, height
 this.setVisible(true);
 
-kmin = new JButton();
-kmin.setLayout(null);
-kmin.setSize(40, 20);
-kmin.setLocation(0, 0);
-//Button unsichtbar
-kmin.setOpaque(true);
-this.add(kmin);
 
 //Button
 JButton kmin = new JButton("Add Tower");
