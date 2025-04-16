@@ -47,25 +47,25 @@ layeredPane.add(backgroundPanel, Integer.valueOf(0)); // Hintergrund in Ebene 0 
 
 // Panels auf Ebene 1 hinzufügen
 
-JLabel euleLabel = new JLabel(new ImageIcon("images/Eule1.png"));
+JLabel euleLabel = new JLabel(new ImageIcon("images/Eule3.png"));
 euleLabel.setBounds(0, 0, framewidth, frameheight); // gleiche Größe, gleiche Position
 euleLabel.setHorizontalAlignment(SwingConstants.LEFT);
 euleLabel.setVerticalAlignment(SwingConstants.TOP);
 
 JPanel eulePanel = new JPanel(null); // Absolutes Layout
 eulePanel.setBounds(0, 0, framewidth, frameheight);
+eulePanel.setOpaque(false); // macht das Panel durchsichtig
 eulePanel.add(euleLabel);
 
 layeredPane.add(eulePanel, Integer.valueOf(1)); // Ebene über dem Hintergrund
 
-
-GenerateWave(5, 2); // Gegnerzahl, Gegnerarten
+GenerateWave(1, 1); // Gegnerzahl, Gegnerarten
 
 }
 
 public void GenerateWave(int Gegnerzahl, int Gegnerarten) {
 	w = 0; // while counter
-	a = 5; // Anzahl der Panels
+	a = Gegnerzahl; // Anzahl der Panels
 	panel = new Form[a];
 	while (w < a) {
 		System.out.println("Mulm");
