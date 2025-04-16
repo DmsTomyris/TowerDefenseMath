@@ -1,14 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements WindowListener, ActionListener{
 private static int leben;
 private static int geld;
 private static JLabel lebenLabel;
 private static JLabel geldLabel;
 public JButton kmin;
+public Tower eistower;
+private Fenster fenster; // Referenz auf Fenster
 
-public GamePanel() {
+public GamePanel(Fenster fenster) {
 leben = 100; // Startleben
 geld = 0; // Startgeld
 
@@ -48,7 +54,21 @@ kmin.setLocation(0, 0);
 //Button unsichtbar
 kmin.setOpaque(true);
 this.add(kmin);
+
+//Button
+JButton kmin = new JButton("Add Tower");
+kmin.setBounds(10, 90, 100, 30);
+kmin.addActionListener(e -> {
+    Tower tower = new Tower(0); // Neuen Tower erzeugen
+    tower.setBounds(300, 300, 100, 100); // Beispielposition und Größe
+    fenster.addTower(tower); // Tower über Fenster hinzufügen
+});
+add(kmin);
+repaint();
+this.setVisible(true);
 }
+
+
 
 public static void setLeben(int schaden) {
 GamePanel.leben -= schaden;
@@ -66,6 +86,54 @@ return leben;
 
 public int getGeld() {
 return geld;
+}
+
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void windowOpened(WindowEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void windowClosing(WindowEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void windowClosed(WindowEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void windowIconified(WindowEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void windowDeiconified(WindowEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void windowActivated(WindowEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void windowDeactivated(WindowEvent e) {
+	// TODO Auto-generated method stub
+	
 }
 
 

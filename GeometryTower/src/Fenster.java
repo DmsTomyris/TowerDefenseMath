@@ -27,7 +27,7 @@ this.setUndecorated(false);
 this.setLayout(null);
 this.setSize(framewidth, frameheight);
 
-GamePanel gamePanel = new GamePanel();
+GamePanel gamePanel = new GamePanel(this);
 layeredPane.add(gamePanel, Integer.valueOf(2));
 
 random = new Random();
@@ -61,6 +61,14 @@ layeredPane.add(eulePanel, Integer.valueOf(1)); // Ebene über dem Hintergrund
 
 GenerateWave(1, 1); // Gegnerzahl, Gegnerarten
 
+}
+
+// Methode zum Hinzufügen eines Towers
+public void addTower(Tower tower) {
+    layeredPane.add(tower, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
+    layeredPane.revalidate(); // Layout aktualisieren
+    layeredPane.repaint(); // Panel neu zeichnen
+    System.out.println("Tower wurde zum Fenster hinzugefügt.");
 }
 
 public void GenerateWave(int Gegnerzahl, int Gegnerarten) {

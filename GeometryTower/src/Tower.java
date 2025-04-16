@@ -10,10 +10,10 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Tower extends JPanel implements WindowListener, ActionListener{
-	public int posx;
-	public int posy;
+	public int posx=0;
+	public int posy=0;
 	private int radius=50;
-	public int range;
+	public int range=100;
 	public int typ=0;
 	
 
@@ -21,8 +21,12 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		this.typ=typ;
 		
 		if (typ == 0) {
+			System.out.println("ehre");
 			Minus();
+			System.out.println("alder");
 			}
+		repaint();
+		this.setVisible(true);
 		
 		
 	}
@@ -31,8 +35,9 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		this.setLayout(null);
 		this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
 		this.setOpaque(false); // Hiermit machen wir das Panel transparent
-		this.setSize(100, 100);
+		this.setSize(radius + 10, radius + 10); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
+		System.out.println("yalla");
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -41,7 +46,7 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		if (typ == 0) {
 		    // Kreis zeichnen, wenn shapeType == 2
 		    g.setColor(Color.getHSBColor(63, 136, 143)); // Setze die Farbe des Kreises auf türkis
-		    g.fillOval(0, 0, this.radius, this.radius); // Kreis an (0, 0) mit dem Durchmesser h zeichnen
+		    g.fillOval(0, 0, this.radius, this.radius); // Kreis an (posx, posy) mit dem Durchmesser h zeichnen
 		}
 		}
 	
