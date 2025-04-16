@@ -48,18 +48,17 @@ layeredPane.add(backgroundPanel, Integer.valueOf(0)); // Hintergrund in Ebene 0 
 // Panels auf Ebene 1 hinzufügen
 
 
-GenerateWave();
-
+GenerateWave(5, 2);
 
 }
 
-public void GenerateWave() {
+public void GenerateWave(int Gegnerzahl, int Gegnerarten) {
 	w = 0; // while counter
 	a = 5; // Anzahl der Panels
 	panel = new Form[a];
 	while (w < a) {
 		System.out.println("Mulm");
-		panel[w] = new Form(w, random.nextInt(2)); // WElche Form
+		panel[w] = new Form(w, random.nextInt(Gegnerarten)); // WElche Form
 		panel[w].setPanelListener(this);
 		layeredPane.add(panel[w], Integer.valueOf(1)); // Panels auf höhere Ebene setzen
 		this.setVisible(true);
