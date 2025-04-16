@@ -12,7 +12,7 @@ private int frameheight = 800;
 
 public JTextField Tg;
 public int w = 0; // while counter
-public int a = 20; // Anzahl der Panels
+public int a = 0; // Anzahl der Panels
 
 private Random random;
 
@@ -46,24 +46,32 @@ backgroundPanel.add(bildLabel);
 layeredPane.add(backgroundPanel, Integer.valueOf(0)); // Hintergrund in Ebene 0 setzen
 
 // Panels auf Ebene 1 hinzufügen
-panel = new Form[a];
-while (w < a) {
-System.out.println("Mulm");
-panel[w] = new Form(w, random.nextInt(3));
-panel[w].setPanelListener(this);
-layeredPane.add(panel[w], Integer.valueOf(1)); // Panels auf höhere Ebene setzen
-this.setVisible(true);
 
-try {
-Thread.sleep(1000);
-} catch (InterruptedException e) {
-e.printStackTrace();
+
+GenerateWave();
+
+
 }
 
-w += 1;
-}
+public void GenerateWave() {
+	w = 0; // while counter
+	a = 5; // Anzahl der Panels
+	panel = new Form[a];
+	while (w < a) {
+		System.out.println("Mulm");
+		panel[w] = new Form(w, random.nextInt(2)); // WElche Form
+		panel[w].setPanelListener(this);
+		layeredPane.add(panel[w], Integer.valueOf(1)); // Panels auf höhere Ebene setzen
+		this.setVisible(true);
 
+		try {
+		Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		e.printStackTrace();
+		}
 
+		w += 1;
+		}
 }
 
 
