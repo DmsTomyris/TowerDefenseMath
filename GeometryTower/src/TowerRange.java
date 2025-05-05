@@ -1,4 +1,5 @@
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -26,26 +27,18 @@ public class TowerRange extends JPanel implements WindowListener, ActionListener
 	}
 	
 	protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // Basisimplementierung aufrufen
+		 super.paintComponent(g); // Basisimplementierung aufrufen
 
-        // Graphics in Graphics2D umwandeln, um erweiterte Features zu nutzen
-        Graphics2D g2d = (Graphics2D) g;
+	        // Graphics in Graphics2D umwandeln
+	        Graphics2D g2d = (Graphics2D) g;
 
-        // Rendering-Hints aktivieren (z. B. Kantenglättung)
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	        // Rendering-Hints aktivieren
+	        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Hintergrund zeichnen
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
-
-        // Transparenz setzen: AlphaComposite mit 50% Deckkraft (0.5f)
-        float alpha = 0.5f; // Wertebereich: 0.0f (vollständig transparent) bis 1.0f (vollständig undurchsichtig)
-        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-        g2d.setComposite(ac);
-
-        // Halbtransparentes Rechteck zeichnen
-        g2d.setColor(Color.WHITE);
-        g2d.fill(new Rectangle2D.Double(50, 50, 200, 100));
+	        // Kreisrand zeichnen (schwarz, keine Füllung)
+	        g2d.setColor(Color.BLACK);
+	        g2d.setStroke(new BasicStroke(3)); // Randbreite auf 3 Pixel setzen
+	        g2d.drawOval(0, 0, 20, 20); // Kreis: x, y, Breite, Höhe
     }
 
 	@Override
