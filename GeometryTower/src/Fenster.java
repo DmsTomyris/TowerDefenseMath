@@ -38,15 +38,19 @@ this.addMouseListener(new MouseAdapter() {
     public void mousePressed(MouseEvent e) {
         if (gamePanel.canAddTower() && SwingUtilities.isLeftMouseButton(e)) {
             Tower tower = new Tower(0); // Create a new Tower
-            tower.setBounds(e.getX()-30, e.getY()-50, 50, 50); // Set tower position to mouse position
-            tower.posx=e.getX()-30;
-            tower.posy=e.getY()-50;
+            tower.posx=(e.getX())-6;
+            tower.posy=(e.getY())-29;
+            tower.setBounds(tower.posx, tower.posy, tower.radius, tower.radius); // Set tower position to mouse position
+            System.out.println(e.getX() + "xx");
+            System.out.println(e.getY()+ "yy");
+            //tower.posx=e.getX()-30;
+            //tower.posy=e.getY()-50;
             
-            System.out.println(tower.posx);
-            System.out.println(tower.posy);
+            System.out.println(tower.posx+ "x");
+            System.out.println(tower.posy+ "y");
             
-            TowerRange range = new TowerRange(tower.range, tower.posx, tower.posy);
-            range.setBounds(e.getX()-55, e.getY()-75, 100, 100); // Set tower position to mouse position
+            TowerRange range = new TowerRange(TowerRange.range, tower.posx, tower.posy);
+            range.setBounds(e.getX()-30-((TowerRange.range-tower.radius)/2), e.getY()-50-((TowerRange.range-tower.radius)/2), TowerRange.range, TowerRange.range); // Set tower position to mouse position
             
             
             addTower(tower); // Add tower to the window

@@ -13,12 +13,13 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 public class TowerRange extends JPanel implements WindowListener, ActionListener{
+	public static int range=400; //reichweite vom tower
 
 	public TowerRange(int range, int posx, int posy) {
 		this.setLayout(null);
 		this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
-		this.setOpaque(true); // Hiermit machen wir das Panel transparent
-		this.setSize(range + 60, range + 10); // Panelgröße etwas größer als der Kreis
+		this.setOpaque(false);// Hiermit machen wir das Panel transparent
+		this.setSize(range + 10, range + 10); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
 		System.out.println(posy);
 		
@@ -36,9 +37,9 @@ public class TowerRange extends JPanel implements WindowListener, ActionListener
 	        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 	        // Kreisrand zeichnen (schwarz, keine Füllung)
-	        g2d.setColor(Color.BLACK);
+	        g2d.setColor(Color.WHITE);
 	        g2d.setStroke(new BasicStroke(3)); // Randbreite auf 3 Pixel setzen
-	        g2d.drawOval(0, 0, 20, 20); // Kreis: x, y, Breite, Höhe
+	        g2d.drawOval(0, 0, TowerRange.range, TowerRange.range); // Kreis: x, y, Breite, Höhe
     }
 
 	@Override

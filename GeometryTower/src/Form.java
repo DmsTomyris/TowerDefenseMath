@@ -250,7 +250,7 @@ if (y > targetY) y--;
 
 this.setLocation(x, y);
 if (x==1600 && defeated == false) {
-System.out.println("you lost");
+//System.out.println("you lost");
 GamePanel.setLeben(10);
 }
 
