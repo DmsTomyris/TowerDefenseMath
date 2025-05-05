@@ -44,7 +44,7 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		
 		if (typ == 0) {
 		    // Kreis zeichnen, wenn shapeType == 2
-		    g.setColor(Color.getHSBColor(63, 136, 143)); // Setze die Farbe des Kreises auf türkis
+		    g.setColor(Color.BLUE); // Setze die Farbe des Kreises auf türkis
 		    g.fillOval(0, 0, this.radius, this.radius); // Kreis an (posx, posy) mit dem Durchmesser h zeichnen
 		}
 		}

@@ -17,7 +17,7 @@ public class TowerRange extends JPanel implements WindowListener, ActionListener
 		this.setLayout(null);
 		this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
 		this.setOpaque(true); // Hiermit machen wir das Panel transparent
-		this.setSize(range + 10, range + 10); // Panelgröße etwas größer als der Kreis
+		this.setSize(range + 60, range + 10); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
 		System.out.println(posy);
 		
@@ -44,7 +44,7 @@ public class TowerRange extends JPanel implements WindowListener, ActionListener
         g2d.setComposite(ac);
 
         // Halbtransparentes Rechteck zeichnen
-        g2d.setColor(Color.BLUE);
+        g2d.setColor(Color.WHITE);
         g2d.fill(new Rectangle2D.Double(50, 50, 200, 100));
     }
 

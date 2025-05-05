@@ -46,10 +46,12 @@ this.addMouseListener(new MouseAdapter() {
             System.out.println(tower.posy);
             
             TowerRange range = new TowerRange(tower.range, tower.posx, tower.posy);
-            range.setBounds(e.getX()-30, e.getY()-50, 100, 100); // Set tower position to mouse position
+            range.setBounds(e.getX()-55, e.getY()-75, 100, 100); // Set tower position to mouse position
             
             
             addTower(tower); // Add tower to the window
+            addTowerRange(range);
+            
             gamePanel.resetTowerFlag(); // Reset the flag
         }
     }
@@ -95,6 +97,13 @@ public void addTower(Tower tower) {
     layeredPane.revalidate(); // Layout aktualisieren
     layeredPane.repaint(); // Panel neu zeichnen
     System.out.println("Tower wurde zum Fenster hinzugefügt.");
+}
+
+public void addTowerRange(TowerRange range) {
+    layeredPane.add(range, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
+    layeredPane.revalidate(); // Layout aktualisieren
+    layeredPane.repaint(); // Panel neu zeichnen
+    System.out.println("Range wurde zum Fenster hinzugefügt.");
 }
 
 public void GenerateWave(int Gegnerzahl, int Gegnerarten) {
