@@ -104,6 +104,7 @@ else if (was == 2) {
 }
 
 
+
 }
 
 public void onButtonClicked(int w) {
@@ -252,6 +253,7 @@ if (x==1600 && defeated == false) {
 System.out.println("you lost");
 GamePanel.setLeben(10);
 }
+
 try {
 Thread.sleep(speed); // Wartezeit zwischen Bewegungen
 } catch (InterruptedException e) {

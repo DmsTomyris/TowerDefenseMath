@@ -13,6 +13,7 @@ private static JLabel geldLabel;
 public JButton kmin;
 public Tower eistower;
 private Fenster fenster; // Referenz auf Fenster
+private boolean canAddTower = false; // Flag to check if we can add a tower
 
 public GamePanel(Fenster fenster) {
 leben = 100; // Startleben
@@ -49,18 +50,23 @@ this.setVisible(true);
 
 
 //Button
-JButton kmin = new JButton("Add Tower");
+kmin = new JButton("Add Tower");
 kmin.setBounds(10, 90, 100, 30);
 kmin.addActionListener(e -> {
-    Tower tower = new Tower(0); // Neuen Tower erzeugen
-    tower.setBounds(300, 300, 100, 100); // Beispielposition und Größe
-    fenster.addTower(tower); // Tower über Fenster hinzufügen
+    canAddTower = true; // Set flag to true when button is pressed
 });
 add(kmin);
 repaint();
 this.setVisible(true);
 }
 
+public boolean canAddTower() {
+    return canAddTower;
+}
+
+public void resetTowerFlag() {
+    canAddTower = false; // Reset the flag after adding a tower
+}
 
 
 public static void setLeben(int schaden) {

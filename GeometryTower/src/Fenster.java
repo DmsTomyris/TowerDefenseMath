@@ -12,9 +12,11 @@ private int frameheight = 800;
 
 public JTextField Tg;
 public int w = 0; // while counter
-public int a = 0; // Anzahl der Panels
+public int a = 5; // Anzahl der Panels
 
 private Random random;
+
+private GamePanel gamePanel; // Reference to GamePanel
 
 JLayeredPane layeredPane = getLayeredPane();
 
@@ -29,6 +31,30 @@ this.setSize(framewidth, frameheight);
 
 GamePanel gamePanel = new GamePanel(this);
 layeredPane.add(gamePanel, Integer.valueOf(2));
+
+//Add mouse listener for left-clicks
+this.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (gamePanel.canAddTower() && SwingUtilities.isLeftMouseButton(e)) {
+            Tower tower = new Tower(0); // Create a new Tower
+            tower.setBounds(e.getX()-30, e.getY()-50, 50, 50); // Set tower position to mouse position
+            tower.posx=e.getX()-30;
+            tower.posy=e.getY()-50;
+            
+            System.out.println(tower.posx);
+            System.out.println(tower.posy);
+            
+            TowerRange range = new TowerRange(tower.range, tower.posx, tower.posy);
+            range.setBounds(e.getX()-30, e.getY()-50, 100, 100); // Set tower position to mouse position
+            
+            
+            addTower(tower); // Add tower to the window
+            gamePanel.resetTowerFlag(); // Reset the flag
+        }
+    }
+});
+
 
 random = new Random();
 
@@ -59,7 +85,7 @@ eulePanel.add(euleLabel);
 
 layeredPane.add(eulePanel, Integer.valueOf(1)); // Ebene über dem Hintergrund
 
-GenerateWave(1, 1); // Gegnerzahl, Gegnerarten
+GenerateWave(10, 1); // Gegnerzahl, Gegnerarten
 
 }
 
@@ -76,7 +102,7 @@ public void GenerateWave(int Gegnerzahl, int Gegnerarten) {
 	a = Gegnerzahl; // Anzahl der Panels
 	panel = new Form[a];
 	while (w < a) {
-		System.out.println("Mulm");
+		//System.out.println("Mulm");
 		panel[w] = new Form(w, random.nextInt(Gegnerarten)); // WElche Form
 		panel[w].setPanelListener(this);
 		layeredPane.add(panel[w], Integer.valueOf(1)); // Panels auf höhere Ebene setzen
@@ -91,6 +117,7 @@ public void GenerateWave(int Gegnerzahl, int Gegnerarten) {
 		w += 1;
 		}
 }
+
 
 
 
