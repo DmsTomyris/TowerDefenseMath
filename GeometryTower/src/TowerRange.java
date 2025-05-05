@@ -85,7 +85,7 @@ public class TowerRange extends JPanel implements WindowListener, ActionListener
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 		
 	}
 
