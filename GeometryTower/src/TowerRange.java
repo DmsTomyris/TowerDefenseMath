@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 public class TowerRange extends JPanel implements WindowListener, ActionListener{
-	public static int range=800; //reichweite vom tower
+	public static int range=500; //reichweite vom tower
 
 	public TowerRange(int range, int posx, int posy) {
 		this.setLayout(null);
