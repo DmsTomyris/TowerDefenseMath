@@ -12,7 +12,7 @@ import java.util.Random;
 public class Tower extends JPanel implements WindowListener, ActionListener{
 	public int posx=0;
 	public int posy=0;
-	public int radius=100; //größe vom tower
+	public int radius=400; //größe vom tower
 
 	public int typ=0;
 	
