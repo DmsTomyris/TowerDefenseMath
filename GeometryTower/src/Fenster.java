@@ -105,7 +105,7 @@ bubblePanel.add(bubbleLabel);
 layeredPane.add(bubblePanel, Integer.valueOf(2)); // Ebene über dem Hintergrund
 
 JLabel warnLabel = new JLabel("Achtung!! Wir werden überfallen!!!");
-warnLabel.setBounds(750, 200, 400, 60); // Position und Größe
+warnLabel.setBounds(800, 230, 400, 60); // Position und Größe
 warnLabel.setFont(new Font("Arial", Font.BOLD, 24));
 warnLabel.setOpaque(true);             // Hintergrund sichtbar machen (optional)
 warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
