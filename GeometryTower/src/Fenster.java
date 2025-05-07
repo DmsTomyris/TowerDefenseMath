@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.*;
 import java.util.Random;
 
@@ -81,11 +82,32 @@ euleLabel.setHorizontalAlignment(SwingConstants.LEFT);
 euleLabel.setVerticalAlignment(SwingConstants.TOP);
 
 JPanel eulePanel = new JPanel(null); // Absolutes Layout
-eulePanel.setBounds(0, 0, framewidth, frameheight);
+eulePanel.setBounds(1100, 300, framewidth, frameheight);
 eulePanel.setOpaque(false); // macht das Panel durchsichtig
 eulePanel.add(euleLabel);
 
 layeredPane.add(eulePanel, Integer.valueOf(1)); // Ebene über dem Hintergrund
+
+JLabel bubbleLabel = new JLabel(new ImageIcon("images/sprechblase1.png"));
+bubbleLabel.setBounds(0, 0, framewidth, frameheight); // gleiche Größe, gleiche Position
+bubbleLabel.setHorizontalAlignment(SwingConstants.LEFT);
+bubbleLabel.setVerticalAlignment(SwingConstants.TOP);
+
+JPanel bubblePanel = new JPanel(null); // Absolutes Layout
+bubblePanel.setBounds(700, 100, framewidth, frameheight);
+bubblePanel.setOpaque(false); // macht das Panel durchsichtig
+bubblePanel.add(bubbleLabel);
+
+layeredPane.add(bubblePanel, Integer.valueOf(2)); // Ebene über dem Hintergrund
+
+JLabel warnLabel = new JLabel("Achtung!! Wir werden überfallen!!!");
+warnLabel.setBounds(750, 200, 400, 60); // Position und Größe
+warnLabel.setFont(new Font("Arial", Font.BOLD, 24));
+warnLabel.setOpaque(true);             // Hintergrund sichtbar machen (optional)
+warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
+
+// Auf Layer 3 hinzufügen
+layeredPane.add(warnLabel, Integer.valueOf(3));
 
 GenerateWave(10, 1); // Gegnerzahl, Gegnerarten
 

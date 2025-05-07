@@ -21,7 +21,6 @@ public class TowerRange extends JPanel implements WindowListener, ActionListener
 		this.setSize(range + 60, range + 10); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
 		System.out.println(posy);
-		
 		repaint();
 		this.setVisible(true);
 	}
