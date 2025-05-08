@@ -120,7 +120,7 @@ warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
 
 // Auf Layer 3 hinzufügen
 
-GenerateWave(1, 3); // Gegnerzahl, Gegnerarten
+
 //Die erste Zeile ausführen
 GenerateWave(3, 1);
 
