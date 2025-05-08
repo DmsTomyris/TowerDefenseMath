@@ -11,3 +11,6 @@ Kreative Towers
 
 Komplexe Formen
 
+tower verlangsamt nicht
+
+tower löschen
