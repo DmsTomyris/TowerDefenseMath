@@ -19,6 +19,9 @@ private Random random;
 
 private GamePanel gamePanel; // Reference to GamePanel
 
+public static int[][] towerpos=new int[12][2];
+public static int towerzahl =0;
+
 JLayeredPane layeredPane = getLayeredPane();
 
 
@@ -41,14 +44,16 @@ this.addMouseListener(new MouseAdapter() {
             Tower tower = new Tower(0); // Create a new Tower
             tower.posx=(e.getX())-6;
             tower.posy=(e.getY())-29;
+            towerpos[towerzahl][0]=tower.posx;
+            towerpos[towerzahl][1]=tower.posy;
             tower.setBounds(tower.posx-(tower.radius/2), tower.posy-(tower.radius/2), tower.radius, tower.radius); // Set tower position to mouse position
-            System.out.println(e.getX() + "xx");
-            System.out.println(e.getY()+ "yy");
+            //System.out.println(e.getX() + "xx");
+            //System.out.println(e.getY()+ "yy");
             //tower.posx=e.getX()-30;
             //tower.posy=e.getY()-50;
             
-            System.out.println(tower.posx+ "x");
-            System.out.println(tower.posy+ "y");
+            System.out.println(tower.posx+ "towerX");
+            System.out.println(tower.posy+ "towerY");
             
             TowerRange range = new TowerRange(TowerRange.range, tower.posx, tower.posy);
             range.setBounds(tower.posx-(TowerRange.range/2), tower.posy-(TowerRange.range/2), TowerRange.range, TowerRange.range); // Set tower position to mouse position
@@ -58,6 +63,7 @@ this.addMouseListener(new MouseAdapter() {
             addTowerRange(range);
             
             gamePanel.resetTowerFlag(); // Reset the flag
+            towerzahl+=1;
         }
     }
 });
@@ -113,7 +119,7 @@ warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
 // Auf Layer 3 hinzufügen
 layeredPane.add(warnLabel, Integer.valueOf(3));
 
-GenerateWave(10, 1); // Gegnerzahl, Gegnerarten
+GenerateWave(1, 3); // Gegnerzahl, Gegnerarten
 
 }
 
@@ -133,6 +139,7 @@ public void addTowerRange(TowerRange range) {
 }
 
 public void GenerateWave(int Gegnerzahl, int Gegnerarten) {
+	
 	w = 0; // while counter
 	a = Gegnerzahl; // Anzahl der Panels
 	panel = new Form[a];

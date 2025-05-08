@@ -21,6 +21,9 @@ private JTextField Tg;
 private JLabel En1;
 private JLabel En2;
 private Random random;
+public int mittelx;
+public int mittely;
+
 
 public boolean defeated = false;
 
@@ -45,6 +48,7 @@ public Form(int w, int was) {
 	h=random.nextInt(5) + 5;
 	
 	
+	
 if (was == 0) {
 Rechteck();
 }
@@ -56,6 +60,8 @@ else if (was==2) {
 Kreis();
 }
 
+mittelx=(int) (x+(0.5*g));
+mittely=(int) (y+(0.5*h));
 
 shapeType=was; // Setze den Typ (0 = Rechteck, 1 = Dreieck)
 //this.add(panel);
@@ -243,6 +249,19 @@ public void defeated() {
 private void movePanelSmoothThread(int targetX, int targetY, int speed, Runnable onComplete) {
 new Thread(() -> {
 while (x != targetX || y != targetY) {
+for (int i=0; i<=Fenster.towerzahl;i++) {
+	
+	//s-=1;
+	if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < Tower.radius) {
+		System.out.println("yaprack");
+	} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < TowerRange.range) {
+	    s = 5;
+//	} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) > TowerRange.range) {
+//	    s = 10;
+	}
+	//System.out.println(s);
+
+	}
 if (x < targetX) x++;
 if (x > targetX) x--;
 if (y < targetY) y++;

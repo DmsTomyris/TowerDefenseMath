@@ -12,7 +12,7 @@ import java.util.Random;
 public class Tower extends JPanel implements WindowListener, ActionListener{
 	public int posx=0;
 	public int posy=0;
-	public int radius=50; //größe vom tower
+	public static int radius=50; //größe vom tower
 
 	public int typ=0;
 	
@@ -35,7 +35,7 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		this.setOpaque(false); // Hiermit machen wir das Panel transparent
 		this.setSize(radius + 10, radius + 10); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
-		System.out.println(posy);
+		//System.out.println(posy);
 		
 	}
 
