@@ -249,29 +249,11 @@ public void defeated() {
 
 }
 
-private void movePanelSmoothThread(int targetX, int targetY, int speed, Runnable onComplete) {
-new Thread(() -> {
-while (x != targetX || y != targetY) {
-for (int i=0; i<=Fenster.towerzahl;i++) {
-	
-	//s-=1;
-	if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < Tower.radius) {
-		System.out.println("yaprack");
-	} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < TowerRange.range) {
-	    s = 5;
-//	} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) > TowerRange.range) {
-//	    s = 10;
-	}
-	//System.out.println(s);
 
-	}
-if (x < targetX) x++;
-if (x > targetX) x--;
-if (y < targetY) y++;
-if (y > targetY) y--;
 private void movePanelSmoothThread(int targetX, int targetY, java.util.function.Supplier<Integer> speedSupplier, Runnable onComplete) {
     new Thread(() -> {
         while (x != targetX || y != targetY) {
+        	
             if (x < targetX) x++;
             if (x > targetX) x--;
             if (y < targetY) y++;
