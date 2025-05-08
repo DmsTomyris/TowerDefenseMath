@@ -124,7 +124,7 @@ warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
 
 
 //Die erste Zeile ausführen
-GenerateWave(1, 1);
+GenerateWave(3, 1);
 
 //Kurze Pause nach der ersten Zeile (z.B. 1000 ms)
 Timer firstPause = new Timer(1000, new ActionListener() {

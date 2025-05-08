@@ -256,17 +256,20 @@ private void movePanelSmoothThread(int targetX, int targetY, java.util.function.
         	for (int i=0; i<=Fenster.towerzahl;i++) {
         		mittelx=(int) (x+(0.5*g*scale));
         		mittely=(int) (y+(0.5*h*scale));
-        		System.out.println(mittelx);
-        		System.out.println(x);
+        		//System.out.println(mittelx);
+        		//System.out.println(x);
         		//s-=1;
         		if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < Tower.radius/2) {
         			//deletetower();
         		} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < TowerRange.range/2) {
-        		    s = 1;
+        		    s = 20;
         		    System.out.println(Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)));
         		} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) > TowerRange.range/2) {
-        		    s = 10;
-        		}}
+        			if (Fenster.towerpos[i][0] != 0) {
+       
+        			s = 10;
+        			}
+        		}System.out.println(s);}
         		//System.out.println(Fenster.towerpos[0][0]);
         		//System.out.println(Fenster.towerpos[0][1]);
             if (x < targetX) x++;
