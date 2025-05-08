@@ -64,19 +64,22 @@ this.setVisible(true);
 addButton(w);
 
 
-movePanelSmoothThread(205, 505, s, () -> {
-movePanelSmoothThread(205, 205, s, () -> {
-movePanelSmoothThread(505, 205, s, () -> {
-movePanelSmoothThread(505, 605, s, () -> {
-movePanelSmoothThread(905, 605, s, () -> {
-movePanelSmoothThread(905, 405, s, () ->{
-movePanelSmoothThread(1600, 405, s, null);
+java.util.function.Supplier<Integer> speedSupplier = () -> s;
+
+movePanelSmoothThread(205, 505, speedSupplier, () -> {
+    movePanelSmoothThread(205, 205, speedSupplier, () -> {
+        movePanelSmoothThread(505, 205, speedSupplier, () -> {
+            movePanelSmoothThread(505, 605, speedSupplier, () -> {
+                movePanelSmoothThread(905, 605, speedSupplier, () -> {
+                    movePanelSmoothThread(905, 405, speedSupplier, () -> {
+                        movePanelSmoothThread(1600, 405, speedSupplier, null);
+                    });
+                });
+            });
+        });
+    });
 });
-});
-});
-});
-}); // Beispiel für die nächste Bewegung
-});
+
 
 if (was <2) {
 	En1 = new JLabel(String.valueOf(h));
@@ -240,32 +243,34 @@ public void defeated() {
 
 }
 
-private void movePanelSmoothThread(int targetX, int targetY, int speed, Runnable onComplete) {
-new Thread(() -> {
-while (x != targetX || y != targetY) {
-if (x < targetX) x++;
-if (x > targetX) x--;
-if (y < targetY) y++;
-if (y > targetY) y--;
+private void movePanelSmoothThread(int targetX, int targetY, java.util.function.Supplier<Integer> speedSupplier, Runnable onComplete) {
+    new Thread(() -> {
+        while (x != targetX || y != targetY) {
+            if (x < targetX) x++;
+            if (x > targetX) x--;
+            if (y < targetY) y++;
+            if (y > targetY) y--;
 
-this.setLocation(x, y);
-if (x==1600 && defeated == false) {
-//System.out.println("you lost");
-GamePanel.setLeben(10);
+            this.setLocation(x, y);
+
+            if (x == 1600 && !defeated) {
+                GamePanel.setLeben(10);
+            }
+
+            try {
+                int speed = speedSupplier.get(); // Dynamische Geschwindigkeit
+                Thread.sleep(speed);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (onComplete != null) {
+            onComplete.run();
+        }
+    }).start();
 }
 
-try {
-Thread.sleep(speed); // Wartezeit zwischen Bewegungen
-} catch (InterruptedException e) {
-e.printStackTrace();
-}
-}
-// Callback aufrufen, wenn die Bewegung abgeschlossen ist
-if (onComplete != null) {
-onComplete.run();
-}
-}).start();
-}
 
 
 
