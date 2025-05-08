@@ -60,8 +60,8 @@ else if (was==2) {
 Kreis();
 }
 
-mittelx=(int) (x+(0.5*g));
-mittely=(int) (y+(0.5*h));
+mittelx=(int) (x+(0.5*g*scale));
+mittely=(int) (y+(0.5*h*scale));
 
 shapeType=was; // Setze den Typ (0 = Rechteck, 1 = Dreieck)
 //this.add(panel);
@@ -253,7 +253,22 @@ public void defeated() {
 private void movePanelSmoothThread(int targetX, int targetY, java.util.function.Supplier<Integer> speedSupplier, Runnable onComplete) {
     new Thread(() -> {
         while (x != targetX || y != targetY) {
-        	
+        	for (int i=0; i<=Fenster.towerzahl;i++) {
+        		mittelx=(int) (x+(0.5*g*scale));
+        		mittely=(int) (y+(0.5*h*scale));
+        		System.out.println(mittelx);
+        		System.out.println(x);
+        		//s-=1;
+        		if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < Tower.radius/2) {
+        			//deletetower();
+        		} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < TowerRange.range/2) {
+        		    s = 1;
+        		    System.out.println(Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)));
+        		} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) > TowerRange.range/2) {
+        		    s = 10;
+        		}}
+        		//System.out.println(Fenster.towerpos[0][0]);
+        		//System.out.println(Fenster.towerpos[0][1]);
             if (x < targetX) x++;
             if (x > targetX) x--;
             if (y < targetY) y++;

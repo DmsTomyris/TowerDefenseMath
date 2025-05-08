@@ -24,6 +24,8 @@ private GamePanel gamePanel; // Reference to GamePanel
 public static int[][] towerpos=new int[12][2];
 public static int towerzahl =0;
 
+public static Tower[] tower=new Tower[12];
+
 JLayeredPane layeredPane = getLayeredPane();
 
 
@@ -43,25 +45,25 @@ this.addMouseListener(new MouseAdapter() {
     @Override
     public void mousePressed(MouseEvent e) {
         if (gamePanel.canAddTower() && SwingUtilities.isLeftMouseButton(e)) {
-            Tower tower = new Tower(0); // Create a new Tower
-            tower.posx=(e.getX())-6;
-            tower.posy=(e.getY())-29;
-            towerpos[towerzahl][0]=tower.posx;
-            towerpos[towerzahl][1]=tower.posy;
-            tower.setBounds(tower.posx-(tower.radius/2), tower.posy-(tower.radius/2), tower.radius, tower.radius); // Set tower position to mouse position
+            tower[towerzahl]  = new Tower(0); // Create a new Tower
+            tower[towerzahl].posx=(e.getX())-6;
+            tower[towerzahl].posy=(e.getY())-29;
+            towerpos[towerzahl][0]=tower[towerzahl].posx;
+            towerpos[towerzahl][1]=tower[towerzahl].posy;
+            tower[towerzahl].setBounds(tower[towerzahl].posx-(tower[towerzahl].radius/2), tower[towerzahl].posy-(tower[towerzahl].radius/2), tower[towerzahl].radius, tower[towerzahl].radius); // Set tower position to mouse position
             //System.out.println(e.getX() + "xx");
             //System.out.println(e.getY()+ "yy");
             //tower.posx=e.getX()-30;
             //tower.posy=e.getY()-50;
             
-            System.out.println(tower.posx+ "towerX");
-            System.out.println(tower.posy+ "towerY");
+            System.out.println(tower[towerzahl].posx+ "towerX");
+            System.out.println(tower[towerzahl].posy+ "towerY");
             
-            TowerRange range = new TowerRange(TowerRange.range, tower.posx, tower.posy);
-            range.setBounds(tower.posx-(TowerRange.range/2), tower.posy-(TowerRange.range/2), TowerRange.range, TowerRange.range); // Set tower position to mouse position
+            TowerRange range = new TowerRange(TowerRange.range, tower[towerzahl].posx, tower[towerzahl].posy);
+            range.setBounds(tower[towerzahl].posx-(TowerRange.range/2), tower[towerzahl].posy-(TowerRange.range/2), TowerRange.range, TowerRange.range); // Set tower position to mouse position
             
             
-            addTower(tower); // Add tower to the window
+            addTower(tower[towerzahl]); // Add tower to the window
             addTowerRange(range);
             
             gamePanel.resetTowerFlag(); // Reset the flag
@@ -122,7 +124,7 @@ warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
 
 
 //Die erste Zeile ausführen
-GenerateWave(3, 1);
+GenerateWave(1, 1);
 
 //Kurze Pause nach der ersten Zeile (z.B. 1000 ms)
 Timer firstPause = new Timer(1000, new ActionListener() {
