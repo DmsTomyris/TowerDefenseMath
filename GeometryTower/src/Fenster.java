@@ -15,7 +15,7 @@ public JTextField Tg;
 public int w = 0; // while counter
 public int a = 5; // Anzahl der Panels
 
-public int defeat = 0;
+public static double defeat = -2;
 
 private Random random;
 
@@ -72,7 +72,6 @@ this.addMouseListener(new MouseAdapter() {
     }
 });
 
-
 random = new Random();
 
 // LayeredPane für Hintergrund und Panels
@@ -120,45 +119,43 @@ warnLabel.setFont(new Font("Arial", Font.BOLD, 24));
 warnLabel.setOpaque(true);             // Hintergrund sichtbar machen (optional)
 warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
 
+layeredPane.add(eulePanel, Integer.valueOf(2));
+layeredPane.add(bubblePanel, Integer.valueOf(3));
+layeredPane.add(warnLabel, Integer.valueOf(4));
 // Auf Layer 3 hinzufügen
 
 
-//Die erste Zeile ausführen
-GenerateWave(3, 1);
 
-//Kurze Pause nach der ersten Zeile (z.B. 1000 ms)
-Timer firstPause = new Timer(1000, new ActionListener() {
- public void actionPerformed(ActionEvent e) {
-     // Die restlichen Zeilen nach der Pause ausführen
-     layeredPane.add(eulePanel, Integer.valueOf(1));
-     layeredPane.add(bubblePanel, Integer.valueOf(2));
-     layeredPane.add(warnLabel, Integer.valueOf(3));
 
-     // Zweite "Pause" – warte auf defeat < 3
-     Timer waitForDefeat = new Timer(2000, null); // prüft alle 500 ms
-     waitForDefeat.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent evt) {
-        	 if (defeat == 0) {
-        		 warnLabel.setText("<html>Schnell! Drücke auf ein Viereck!<br>Du besiegst es, indem du den Flächeninhalt ausrechnest!<br>Multipliziere die beiden Zahlen!</html>");
 
-        	 }
-        		 
-        	 
-             if (defeat > 3) {
-                 waitForDefeat.stop(); // Stoppe den Timer, wenn Bedingung erfüllt
-                 GenerateWave(10, 1); // Gegnerzahl, Gegnerarten
-             }
-         }
-     });
-     waitForDefeat.start(); // Starte die Überwachung
- }
+Timer initWaveTimer = new Timer(500, new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        GenerateWave(3, 1); // Erste Welle starten
+
+        // Einführung + Überwachung von defeat-Werten
+        Timer tutorialWatcher = new Timer(500, null);
+        tutorialWatcher.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (defeat == 0) {
+                	defeat += 1;
+                    warnLabel.setText("<html>Schnell! Drücke auf ein Viereck!<br>Du besiegst es, indem du den Flächeninhalt ausrechnest!<br>Multipliziere die beiden Zahlen!</html>");
+                }
+                if (defeat == 4) {
+                    defeat += 1;
+                    GenerateWave(10, 1); // Zweite Welle
+                }
+                if (defeat == 15) {
+                    tutorialWatcher.stop();
+                    System.out.println("Tutorial beendet");
+                }
+            }
+        });
+        tutorialWatcher.start();
+    }
 });
-firstPause.setRepeats(false); // Nur einmal ausführen
-firstPause.start(); // Starte die erste Pause
-
-
+initWaveTimer.setRepeats(false);
+initWaveTimer.start();
 }
-
 // Methode zum Hinzufügen eines Towers
 public void addTower(Tower tower) {
     layeredPane.add(tower, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
@@ -174,27 +171,32 @@ public void addTowerRange(TowerRange range) {
     System.out.println("Range wurde zum Fenster hinzugefügt.");
 }
 
-public void GenerateWave(int Gegnerzahl, int Gegnerarten) {
-	
-	w = 0; // while counter
-	a = Gegnerzahl; // Anzahl der Panels
-	panel = new Form[a];
-	while (w < a) {
-		//System.out.println("Mulm");
-		panel[w] = new Form(w, random.nextInt(Gegnerarten)); // WElche Form
-		panel[w].setPanelListener(this);
-		layeredPane.add(panel[w], Integer.valueOf(1)); // Panels auf höhere Ebene setzen
-		this.setVisible(true);
+public void GenerateWave(int gegnerAnzahl, int gegnerArt) {
+    panel = new Form[gegnerAnzahl];
+    w = 0;
+    Timer spawnTimer = new Timer(2000, null); // Alle 500 ms ein Gegner
+    spawnTimer.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            if (w < gegnerAnzahl) {
+            	if (defeat < 0) {
+                	defeat += 1;
+                	System.out.println(defeat);}
+                panel[w] = new Form(w, random.nextInt(gegnerArt));
+                panel[w].setPanelListener(Fenster.this);
+                layeredPane.add(panel[w], Integer.valueOf(1));
+                Fenster.this.setVisible(true);
+                w++;
+            } else {
+                spawnTimer.stop(); // Alle Gegner gespawnt, Timer beenden
+            }
+        }
+    });
 
-		try {
-		Thread.sleep(1000);
-		} catch (InterruptedException e) {
-		e.printStackTrace();
-		}
-
-		w += 1;
-		}
+    spawnTimer.start();
 }
+
+
+
 
 
 

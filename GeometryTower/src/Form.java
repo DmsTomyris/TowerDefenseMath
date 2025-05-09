@@ -40,13 +40,11 @@ private PanelListener listener; // Interface für die Kommunikation
 public Form(int w, int was) {
 	
 	random = new Random();
-	g=random.nextInt(5) + 5;
-	if (!(g % 2 == 0)) {
-        g+=1;
-    } 
-	random = new Random();
-	h=random.nextInt(5) + 5;
+	g=7;
 	
+    
+	random = new Random();
+	h=7;
 	
 	
 if (was == 0) {
@@ -88,19 +86,14 @@ movePanelSmoothThread(205, 505, speedSupplier, () -> {
 
 
 if (was <2) {
-	En1 = new JLabel(String.valueOf(h));
+	En1 = new JLabel(String.valueOf(g) + "+" + String.valueOf(g));
 	En1.setLocation(0, h*scale /2-10);
 	En1.setSize(40, 20);
 	En1.setForeground(Color.WHITE);
 	En1.setOpaque(false);
 	this.add(En1);
 
-	En2 = new JLabel(String.valueOf(g));
-	En2.setLocation((g*scale-20)/2, h*scale-20);
-	En2.setSize(40, 20);
-	En2.setForeground(Color.WHITE);
-	En2.setOpaque(false);
-	this.add(En2);
+
 	repaint();
 }
 else if (was == 2) {
@@ -131,22 +124,26 @@ public void onButtonClicked(int w) {
         Be.setVisible(true);
 
         if  (this.shapeType == 0) {
-            if (Integer.parseInt(Tg.getText()) == this.g * this.h){
+            if (Integer.parseInt(Tg.getText()) == this.g + this.h){
                 Container parent = this.getParent(); // <-- wichtiger Fix
                 if (parent != null) {
                     parent.remove(this); // statt this.remove(this)
                 }
                 this.defeated = true;
+                Fenster.defeat += 1;
+                System.out.println(Fenster.defeat);
                 GamePanel.setGeld(100);
             }
         }
         else if (this.shapeType == 1){
-            if (Integer.parseInt(Tg.getText()) == this.g * this.h * 0.5){
+            if (Integer.parseInt(Tg.getText()) == this.g * this.h){
                 Container parent = this.getParent();
                 if (parent != null) {
                     parent.remove(this);
                 }
                 this.defeated = true;
+                Fenster.defeat += 1;
+                System.out.println(Fenster.defeat);
                 GamePanel.setGeld(100);
             }
         }
@@ -158,6 +155,8 @@ public void onButtonClicked(int w) {
                 }
                 this.defeated = true;
                 GamePanel.setGeld(100);
+                Fenster.defeat += 1;
+                System.out.println(Fenster.defeat);
             }
         }
         
@@ -184,7 +183,6 @@ this.add(Be);
 Be.addActionListener(e -> {
 if (listener != null) {
 onButtonClicked(w); // Event auslösen
-System.out.println("Test");
 }
 Be.setVisible(false);
 this.revalidate();
@@ -263,13 +261,12 @@ private void movePanelSmoothThread(int targetX, int targetY, java.util.function.
         			//deletetower();
         		} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < TowerRange.range/2) {
         		    s = 20;
-        		    System.out.println(Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)));
         		} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) > TowerRange.range/2) {
         			if (Fenster.towerpos[i][0] != 0) {
        
         			s = 10;
         			}
-        		}System.out.println(s);}
+        		}}
         		//System.out.println(Fenster.towerpos[0][0]);
         		//System.out.println(Fenster.towerpos[0][1]);
             if (x < targetX) x++;
