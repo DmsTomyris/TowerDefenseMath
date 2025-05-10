@@ -15,7 +15,9 @@ public JTextField Tg;
 public int w = 0; // while counter
 public int a = 5; // Anzahl der Panels
 
-public static double defeat = -2;
+public static double defeat = 0;
+public static int start = 0;
+
 
 private Random random;
 
@@ -119,12 +121,12 @@ warnLabel.setFont(new Font("Arial", Font.BOLD, 24));
 warnLabel.setOpaque(true);             // Hintergrund sichtbar machen (optional)
 warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
 
+
+// Auf Layer 3 hinzufügen
+
 layeredPane.add(eulePanel, Integer.valueOf(2));
 layeredPane.add(bubblePanel, Integer.valueOf(3));
 layeredPane.add(warnLabel, Integer.valueOf(4));
-// Auf Layer 3 hinzufügen
-
-
 
 
 
@@ -136,15 +138,31 @@ Timer initWaveTimer = new Timer(500, new ActionListener() {
         Timer tutorialWatcher = new Timer(500, null);
         tutorialWatcher.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                if (defeat == 0) {
+                if (defeat == 0 && start == 2) {
                 	defeat += 1;
                     warnLabel.setText("<html>Schnell! Drücke auf ein Viereck!<br>Du besiegst es, indem du den Flächeninhalt ausrechnest!<br>Multipliziere die beiden Zahlen!</html>");
                 }
                 if (defeat == 4) {
                     defeat += 1;
-                    GenerateWave(10, 1); // Zweite Welle
+                    layeredPane.setLayer(eulePanel, Integer.valueOf(0));
+                    layeredPane.setLayer(bubblePanel, Integer.valueOf(0));
+                    layeredPane.setLayer(warnLabel, Integer.valueOf(0));
+                    GenerateWave(8, 1); // Zweite Welle
                 }
-                if (defeat == 15) {
+                if (defeat == 13) {
+                	defeat += 1;
+                	GenerateWave(10, 2); // Zweite Welle
+                	warnLabel.setText("<html>Nimm dich vor den Dreiecken in Acht!<br>Quadriere die angezeigte Zahl</html>");
+                	layeredPane.setLayer(eulePanel, Integer.valueOf(2));
+                    layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
+                    layeredPane.setLayer(warnLabel, Integer.valueOf(4));
+                }
+                if (defeat == 24) {
+                	defeat += 1;
+                	GenerateWave(15, 3); // Zweite Welle
+                	warnLabel.setText("<html>Du kennst das Spiel schon!<br>Multipliziere die Zahlen in den Kreisen</html>");
+                }
+                if (defeat == 40) {
                     tutorialWatcher.stop();
                     System.out.println("Tutorial beendet");
                 }
@@ -174,13 +192,13 @@ public void addTowerRange(TowerRange range) {
 public void GenerateWave(int gegnerAnzahl, int gegnerArt) {
     panel = new Form[gegnerAnzahl];
     w = 0;
-    Timer spawnTimer = new Timer(2000, null); // Alle 500 ms ein Gegner
+    Timer spawnTimer = new Timer(1500, null); // Alle 500 ms ein Gegner
     spawnTimer.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             if (w < gegnerAnzahl) {
-            	if (defeat < 0) {
-                	defeat += 1;
-                	System.out.println(defeat);}
+            	if (start < 2) {
+                	start += 1;
+                	System.out.println(start);}
                 panel[w] = new Form(w, random.nextInt(gegnerArt));
                 panel[w].setPanelListener(Fenster.this);
                 layeredPane.add(panel[w], Integer.valueOf(1));

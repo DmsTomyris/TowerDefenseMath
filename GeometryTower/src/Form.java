@@ -13,6 +13,8 @@ import java.util.Random;
 public class Form extends JPanel implements WindowListener, ActionListener{
 public int g; //public weil brauchen es in Fenster
 public int h; //public weil brauchen es in Fenster.; Mindestens 25 sonst zu klein
+public int g2; //public weil brauchen es in Fenster
+public int h2; //public weil brauchen es in Fenster.; Mindestens 25 sonst zu klein
 public int scale=8;
 public int x = 0;
 public int y = 505;
@@ -41,10 +43,13 @@ public Form(int w, int was) {
 	
 	random = new Random();
 	g=7;
-	
-    
 	random = new Random();
 	h=7;
+	
+	random = new Random();
+	g2 = random.nextInt(19) + 2; // ergibt Werte von 2 bis 20
+
+	h2 = random.nextInt(19) + 2;
 	
 	
 if (was == 0) {
@@ -85,19 +90,25 @@ movePanelSmoothThread(205, 505, speedSupplier, () -> {
 });
 
 
-if (was <2) {
-	En1 = new JLabel(String.valueOf(g) + "+" + String.valueOf(g));
+if (was == 0) {
+	En1 = new JLabel(String.valueOf(g2) + "+" + String.valueOf(h2));
 	En1.setLocation(0, h*scale /2-10);
 	En1.setSize(40, 20);
 	En1.setForeground(Color.WHITE);
 	En1.setOpaque(false);
 	this.add(En1);
-
-
+	}
+else if (was == 1) {
+	En1 = new JLabel(String.valueOf(g2));
+	En1.setLocation(0, h*scale /2-10);
+	En1.setSize(40, 20);
+	En1.setForeground(Color.WHITE);
+	En1.setOpaque(false);
+	this.add(En1);
 	repaint();
 }
 else if (was == 2) {
-	En1 = new JLabel(String.valueOf(h));
+	En1 = new JLabel(String.valueOf(g2) + "*" + String.valueOf(h2));
 	En1.setLocation(0, h*scale /2-10);
 	En1.setSize(40, 20);
 	En1.setForeground(Color.WHITE);
@@ -119,12 +130,12 @@ public void onButtonClicked(int w) {
     
 
     Tg.addActionListener(e -> {
-        System.out.println(Tg.getText() + " " + (this.g * this.h));
+        System.out.println(Tg.getText() + " " + (this.g2 * this.h2));
         this.remove(Tg);
         Be.setVisible(true);
 
         if  (this.shapeType == 0) {
-            if (Integer.parseInt(Tg.getText()) == this.g + this.h){
+            if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
                 Container parent = this.getParent(); // <-- wichtiger Fix
                 if (parent != null) {
                     parent.remove(this); // statt this.remove(this)
@@ -136,7 +147,7 @@ public void onButtonClicked(int w) {
             }
         }
         else if (this.shapeType == 1){
-            if (Integer.parseInt(Tg.getText()) == this.g * this.h){
+            if (Integer.parseInt(Tg.getText()) == this.g2 * this.g2){
                 Container parent = this.getParent();
                 if (parent != null) {
                     parent.remove(this);
@@ -148,7 +159,7 @@ public void onButtonClicked(int w) {
             }
         }
         else if (this.shapeType == 2) {
-            if (Integer.parseInt(Tg.getText()) == this.h * this.h * 3){
+            if (Integer.parseInt(Tg.getText()) == this.g2 * this.h2){
                 Container parent = this.getParent();
                 if (parent != null) {
                     parent.remove(this);
