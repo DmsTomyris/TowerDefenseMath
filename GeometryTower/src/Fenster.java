@@ -25,19 +25,24 @@ private GamePanel gamePanel; // Reference to GamePanel
 
 public static int[][] towerpos=new int[12][2];
 public static int towerzahl =0;
+public static boolean Schliessen = false;
 
 public static Tower[] tower=new Tower[12];
 
 JLayeredPane layeredPane = getLayeredPane();
 
 
-public Fenster(String titel) {
+public Fenster(String titel, int level) {
 super(titel);
 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 this.setResizable(false);
 this.setUndecorated(false);
 this.setLayout(null);
 this.setSize(framewidth, frameheight);
+
+Schliessen=true;
+//Startmenu.Schliessenkahba();
+
 
 GamePanel gamePanel = new GamePanel(this);
 layeredPane.add(gamePanel, Integer.valueOf(2));
