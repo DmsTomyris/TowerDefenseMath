@@ -233,13 +233,113 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 tutorialWatcher.stop();
                             }}});tutorialWatcher.start();}});initWaveTimer.setRepeats(false);initWaveTimer.start();
         } else if (level == 2) {
-            // Level 2 spezifische Logik
+        	initWaveTimer = new Timer(500, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    GenerateWave(7, 1, 12); // Erste Welle starten
+                    tutorialWatcher = new Timer(500, null);
+                    tutorialWatcher.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (defeat == 0 && start == 2) {
+                                defeat += 1;}
+                            if (defeat == 6) {
+                                defeat += 1;
+                                GenerateWave(10, 2, 17);}
+                            if (defeat == 15) {
+                                defeat += 1;
+                                GenerateWave(30, 2, 12);}
+                            if (defeat == 26) {
+                                defeat += 1;
+                                GenerateWave(17, 3, 21);}
+                            if (defeat == 42) {
+                            	defeat += 1;
+                                warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
+                                layeredPane.setLayer(eulePanel, Integer.valueOf(2));
+                                layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
+                                layeredPane.setLayer(warnLabel, Integer.valueOf(4));
+                                btnStartMenu.setBounds(850, 350, 280, 50);
+                                tutorialWatcher.stop();
+                            }}});tutorialWatcher.start();}});initWaveTimer.setRepeats(false);initWaveTimer.start();
         } else if (level == 3) {
-            // Level 3 spezifische Logik
+        	initWaveTimer = new Timer(500, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    GenerateWave(10, 1, 14); // Erste Welle starten
+                    tutorialWatcher = new Timer(500, null);
+                    tutorialWatcher.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (defeat == 0 && start == 2) {
+                                defeat += 1;}
+                            if (defeat == 6) {
+                                defeat += 1;
+                                GenerateWave(14, 2, 17);}
+                            if (defeat == 15) {
+                                defeat += 1;
+                                GenerateWave(15, 2, 24);}
+                            if (defeat == 26) {
+                                defeat += 1;
+                                GenerateWave(17, 3, 19);}
+                            if (defeat == 42) {
+                            	defeat += 1;
+                                warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
+                                layeredPane.setLayer(eulePanel, Integer.valueOf(2));
+                                layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
+                                layeredPane.setLayer(warnLabel, Integer.valueOf(4));
+                                btnStartMenu.setBounds(850, 350, 280, 50);
+                                tutorialWatcher.stop();
+                            }}});tutorialWatcher.start();}});initWaveTimer.setRepeats(false);initWaveTimer.start();
         } else if (level == 4) {
-            // Level 4 spezifische Logik
+        	initWaveTimer = new Timer(500, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    GenerateWave(10, 1, 28); // Erste Welle starten
+                    tutorialWatcher = new Timer(500, null);
+                    tutorialWatcher.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (defeat == 0 && start == 2) {
+                                defeat += 1;}
+                            if (defeat == 6) {
+                                defeat += 1;
+                                GenerateWave(12, 1, 57);}
+                            if (defeat == 15) {
+                                defeat += 1;
+                                GenerateWave(17, 2, 21);}
+                            if (defeat == 26) {
+                                defeat += 1;
+                                GenerateWave(5, 3, 29);}
+                            if (defeat == 42) {
+                            	defeat += 1;
+                                warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
+                                layeredPane.setLayer(eulePanel, Integer.valueOf(2));
+                                layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
+                                layeredPane.setLayer(warnLabel, Integer.valueOf(4));
+                                btnStartMenu.setBounds(850, 350, 280, 50);
+                                tutorialWatcher.stop();
+                            }}});tutorialWatcher.start();}});initWaveTimer.setRepeats(false);initWaveTimer.start();
         } else if (level == 5) {
-            // Level 5 spezifische Logik
+        	initWaveTimer = new Timer(500, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    GenerateWave(12, 1, 187); // Erste Welle starten
+                    tutorialWatcher = new Timer(500, null);
+                    tutorialWatcher.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (defeat == 0 && start == 2) {
+                                defeat += 1;}
+                            if (defeat == 6) {
+                                defeat += 1;
+                                GenerateWave(14, 2, 17);}
+                            if (defeat == 15) {
+                                defeat += 1;
+                                GenerateWave(17, 3, 19);}
+                            if (defeat == 26) {
+                                defeat += 1;
+                                GenerateWave(14, 3, 40);}
+                            if (defeat == 42) {
+                            	defeat += 1;
+                                warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
+                                layeredPane.setLayer(eulePanel, Integer.valueOf(2));
+                                layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
+                                layeredPane.setLayer(warnLabel, Integer.valueOf(4));
+                                btnStartMenu.setBounds(850, 350, 280, 50);
+                                tutorialWatcher.stop();
+                            }}});tutorialWatcher.start();}});initWaveTimer.setRepeats(false);initWaveTimer.start();
         } else if (level == 6) {
             // Level 6 spezifische Logik
         }
