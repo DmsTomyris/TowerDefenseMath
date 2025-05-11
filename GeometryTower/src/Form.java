@@ -271,7 +271,7 @@ public void defeated() {
 private void movePanelSmoothThread(int targetX, int targetY, java.util.function.Supplier<Integer> speedSupplier, Runnable onComplete) {
     new Thread(() -> {
         while (x != targetX || y != targetY) {
-        	System.out.println(s);
+//        	System.out.println(s);
         	for (int i=0; i<=Fenster.towerzahl;i++) {
         		mittelx=(int) (x+(0.5*g*scale));
         		mittely=(int) (y+(0.5*h*scale));
