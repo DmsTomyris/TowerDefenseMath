@@ -133,8 +133,10 @@ public void onButtonClicked(int w) {
         //System.out.println(Tg.getText() + " " + (this.g2 * this.h2));
         this.remove(Tg);
         Be.setVisible(true);
-
+        
         if  (this.shapeType == 0) {
+        	System.out.println(Tg.getText());
+        	System.out.println(Tg.getText());
             if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
                 Container parent = this.getParent(); // <-- wichtiger Fix
                 if (parent != null) {
