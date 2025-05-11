@@ -121,8 +121,9 @@ else if (was == 2) {
 }
 
 public void onButtonClicked(int w) {
+
     Tg = new JTextField();
-    
+	this.remove(Tg);
     Tg.setBounds(10, 0, 50, 25);
     this.add(Tg); // <- wichtig: ohne Layer-Index!
     this.revalidate(); // <- neu
@@ -136,14 +137,10 @@ public void onButtonClicked(int w) {
         
         if  (this.shapeType == 0) {
         	System.out.println(Tg.getText());
-        	System.out.println(Tg.getText());
-        	String input = Tg.getText().trim();
-        	if (!input.matches("\\d+")) {
-        	    System.out.println("Ungültige Eingabe: " + input);
-        	    return; // abbrechen
-        	}
-        	int eingabe = Integer.parseInt(input);
-        	if (eingabe == this.g2 + this.h2) {
+        	
+        	if (Tg.getText()!="") {
+        		System.out.println(Tg.getText());
+            if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
                 Container parent = this.getParent(); // <-- wichtiger Fix
                 if (parent != null) {
                 	if (listener != null) {
@@ -156,7 +153,7 @@ public void onButtonClicked(int w) {
                 System.out.println(Fenster.defeat);
                 GamePanel.setGeld(10);
             }
-        }
+        }}
         else if (this.shapeType == 1){
             if (Integer.parseInt(Tg.getText()) == this.g2 * this.g2){
                 Container parent = this.getParent();
@@ -400,6 +397,14 @@ public void windowActivated(WindowEvent e) {
 public void windowDeactivated(WindowEvent e) {
 // TODO Auto-generated method stub
 
+}
+
+public void refresh() {
+	if (Tg != null) {
+	this.remove(Tg);
+	}
+	onButtonClicked(0);
+	
 }
 
 }

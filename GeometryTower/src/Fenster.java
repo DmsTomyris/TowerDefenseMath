@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.Random;
 
 class Fenster extends JFrame implements WindowListener, ActionListener, Form.PanelListener {
-    private Form panel[];
+    private static Form panel[];
 
     private int framewidth = 1500;
     private int frameheight = 800;
@@ -78,7 +78,14 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
 
         random = new Random();
 
-        // LayeredPane für Hintergrund und Panels
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                refreshTextField();
+            }
+        });
+
 
         JButton btnStartMenu = new JButton("Menu");
         btnStartMenu.setBounds(10, 10, 100, 20);
@@ -427,6 +434,12 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         refreshTimer.setRepeats(true);
         refreshTimer.start();
     }
+    public void refreshTextField() {
+    	for (Form p : Fenster.panel) {
+            if (p != null) {
+                p.refresh();
+                break;
+    }}}
 
     public void addTower(Tower tower) {
         layeredPane.add(tower, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
