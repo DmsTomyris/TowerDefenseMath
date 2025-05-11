@@ -129,10 +129,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         warnLabel.setOpaque(true); // Hintergrund sichtbar machen (optional)
         warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
 
-        // Auf Layer 3 hinzufügen
-        layeredPane.add(eulePanel, Integer.valueOf(2));
-        layeredPane.add(bubblePanel, Integer.valueOf(3));
-        layeredPane.add(warnLabel, Integer.valueOf(4));
+
 
         startAutoRefresh();
 
