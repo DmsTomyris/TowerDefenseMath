@@ -31,11 +31,11 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
 
     private GamePanel gamePanel; // Reference to GamePanel
 
-    public static int[][] towerpos = new int[12][2];
+    public static int[][] towerpos = new int[1][2];
     public static int towerzahl = 0;
     public static boolean Schliessen = false;
 
-    public static Tower[] tower = new Tower[12];
+    public static Tower[] tower = new Tower[1];
 
     JLayeredPane layeredPane = getLayeredPane();
 
@@ -72,7 +72,6 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                     addTowerRange(range);
 
                     gamePanel.resetTowerFlag(); // Reset the flag
-                    towerzahl += 1;
                 }
             }
         });
@@ -338,8 +337,53 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 tutorialWatcher.stop();
                             }}});tutorialWatcher.start();}});initWaveTimer.setRepeats(false);initWaveTimer.start();
         } else if (level == 6) {
-            // Level 6 spezifische Logik
+            initWaveTimer = new Timer(500, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    GenerateWave(6, 1, 10); // Erste Welle starten
+                    tutorialWatcher = new Timer(500, null);
+                    tutorialWatcher.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (defeat == 0 && start == 2) {
+                                defeat += 1;
+                            }
+                            if (defeat == 10) {
+                                defeat += 1;
+                                GenerateWave(10, 1, 12);
+                            }
+                            if (defeat == 20) {
+                                defeat += 1;
+                                GenerateWave(12, 2, 15);
+                            }
+                            if (defeat == 30) {
+                                defeat += 1;
+                                GenerateWave(14, 3, 12);
+                            }
+                            if (defeat == 40) {
+                                defeat += 1;
+                                GenerateWave(16, 3, 14);
+                            }
+                            if (defeat == 50) {
+                                defeat += 1;
+                                GenerateWave(15, 3, 16);
+                            }
+                            if (defeat > 50 && defeat % 10 == 0) {
+                                defeat += 1;
+                                // Increase wave size and count with each cycle
+                                int waveSize = (int) (30 + (defeat / 10) * 2);
+                                int waveType = 3;
+                                int waveCount = (int) (160 + (defeat * 5));
+                                GenerateWave(waveSize, waveType, waveCount);
+                            }
+                        }
+                    });
+                    tutorialWatcher.start();
+                }
+            });
+            initWaveTimer.setRepeats(false);
+            initWaveTimer.start();
         }
+
+
     }
 
     public void cleanup() {
