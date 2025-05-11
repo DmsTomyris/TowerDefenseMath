@@ -130,7 +130,7 @@ public void onButtonClicked(int w) {
     
 
     Tg.addActionListener(e -> {
-        System.out.println(Tg.getText() + " " + (this.g2 * this.h2));
+        //System.out.println(Tg.getText() + " " + (this.g2 * this.h2));
         this.remove(Tg);
         Be.setVisible(true);
 
@@ -138,6 +138,9 @@ public void onButtonClicked(int w) {
             if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
                 Container parent = this.getParent(); // <-- wichtiger Fix
                 if (parent != null) {
+                	if (listener != null) {
+                	    listener.onPanelRemoved(this); // << HIER
+                	}
                     parent.remove(this); // statt this.remove(this)
                 }
                 this.defeated = true;
@@ -150,7 +153,10 @@ public void onButtonClicked(int w) {
             if (Integer.parseInt(Tg.getText()) == this.g2 * this.g2){
                 Container parent = this.getParent();
                 if (parent != null) {
-                    parent.remove(this);
+                	if (listener != null) {
+                	    listener.onPanelRemoved(this); // << HIER
+                	}
+                    parent.remove(this); // statt this.remove(this)
                 }
                 this.defeated = true;
                 Fenster.defeat += 1;
@@ -162,12 +168,15 @@ public void onButtonClicked(int w) {
             if (Integer.parseInt(Tg.getText()) == this.g2 * this.h2){
                 Container parent = this.getParent();
                 if (parent != null) {
-                    parent.remove(this);
+                	if (listener != null) {
+                	    listener.onPanelRemoved(this); // << HIER
+                	}
+                    parent.remove(this); // statt this.remove(this)
                 }
                 this.defeated = true;
                 GamePanel.setGeld(30);
                 Fenster.defeat += 1;
-                System.out.println(Fenster.defeat);
+                //System.out.println(Fenster.defeat);
             }
         }
         
@@ -318,6 +327,8 @@ this.listener = listener;
 // Interface für das Event
 public interface PanelListener {
 void onButtonClicked(int w);
+
+void onPanelRemoved(Form form);
 }
 
 

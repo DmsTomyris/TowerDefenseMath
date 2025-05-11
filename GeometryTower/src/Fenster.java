@@ -12,6 +12,7 @@ private int framewidth = 1500;
 private int frameheight = 800;
 
 public static int globallevel;
+private int waveiterator = 0;
 
 public JTextField Tg;
 public int w = 0; // while counter
@@ -68,8 +69,7 @@ this.addMouseListener(new MouseAdapter() {
             //tower.posx=e.getX()-30;
             //tower.posy=e.getY()-50;
             
-            System.out.println(tower[towerzahl].posx+ "towerX");
-            System.out.println(tower[towerzahl].posy+ "towerY");
+
             
             TowerRange range = new TowerRange(TowerRange.range, tower[towerzahl].posx, tower[towerzahl].posy);
             range.setBounds(tower[towerzahl].posx-(TowerRange.range/2), tower[towerzahl].posy-(TowerRange.range/2), TowerRange.range, TowerRange.range); // Set tower position to mouse position
@@ -235,7 +235,8 @@ public void addTowerRange(TowerRange range) {
 }
 
 public void GenerateWave(int gegnerAnzahl, int gegnerArt) {
-    panel = new Form[gegnerAnzahl];
+	waveiterator = 0;
+    panel = new Form[gegnerAnzahl+1];
     w = 0;
     Timer spawnTimer = new Timer(1500, null); // Alle 500 ms ein Gegner
     spawnTimer.addActionListener(new ActionListener() {
@@ -243,7 +244,8 @@ public void GenerateWave(int gegnerAnzahl, int gegnerArt) {
             if (w < gegnerAnzahl) {
             	if (start < 2) {
                 	start += 1;
-                	System.out.println(start);}
+                	//System.out.println(start);
+                	}
                 panel[w] = new Form(w, random.nextInt(gegnerArt));
                 panel[w].setPanelListener(Fenster.this);
                 layeredPane.add(panel[w], Integer.valueOf(1));
@@ -256,6 +258,19 @@ public void GenerateWave(int gegnerAnzahl, int gegnerArt) {
     });
 
     spawnTimer.start();
+}
+
+public void focusNext() {
+	waveiterator+=1;
+	    if (panel[waveiterator] != null && panel[waveiterator].isVisible()) { // oder ein eigener Zustand wie panel[i].isDefeated() == false
+	        panel[waveiterator].onButtonClicked(0);  // oder eine Methode wie highlight(), select(), etc.
+	    }
+	}
+
+
+@Override
+public void onPanelRemoved(Form form) {
+    focusNext();
 }
 
 
@@ -291,10 +306,13 @@ public void windowDeactivated(WindowEvent e) {}
 public void actionPerformed(ActionEvent e) {}
 
 
-
 @Override
 public void onButtonClicked(int w) {
 	// TODO Auto-generated method stub
 	
 }
+
+
+
+
 }
