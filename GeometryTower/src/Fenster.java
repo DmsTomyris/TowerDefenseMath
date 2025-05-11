@@ -42,6 +42,8 @@ this.setSize(framewidth, frameheight);
 GamePanel gamePanel = new GamePanel(this);
 layeredPane.add(gamePanel, Integer.valueOf(2));
 
+
+
 //Add mouse listener for left-clicks
 this.addMouseListener(new MouseAdapter() {
     @Override
@@ -128,7 +130,7 @@ layeredPane.add(eulePanel, Integer.valueOf(2));
 layeredPane.add(bubblePanel, Integer.valueOf(3));
 layeredPane.add(warnLabel, Integer.valueOf(4));
 
-
+startAutoRefresh();
 
 Timer initWaveTimer = new Timer(500, new ActionListener() {
     public void actionPerformed(ActionEvent e) {
@@ -174,6 +176,20 @@ Timer initWaveTimer = new Timer(500, new ActionListener() {
 initWaveTimer.setRepeats(false);
 initWaveTimer.start();
 }
+
+
+private void startAutoRefresh() {
+    Timer refreshTimer = new Timer(100, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            layeredPane.revalidate();
+            layeredPane.repaint();
+        }
+    });
+    refreshTimer.setRepeats(true);
+    refreshTimer.start();
+}
+
 // Methode zum Hinzufügen eines Towers
 public void addTower(Tower tower) {
     layeredPane.add(tower, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
