@@ -1,16 +1,20 @@
 Todo-Inofprojekt
 
-Bugfixes
+Teo:
 
-Eule
+Totorial
+Levels 
+Endless
 
-Tower erster
+James
+
+Tower Kollision
+Startmenu ordentlich machen
+	Hintergrund blurren
+	Bugfixen- kästen erscheinen erst später
 
 
-Kreative Towers
 
-Komplexe Formen
 
-tower verlangsamt nicht
 
-tower löschen
+

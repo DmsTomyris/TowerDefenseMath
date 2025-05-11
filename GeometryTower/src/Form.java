@@ -26,9 +26,9 @@ private Random random;
 public int mittelx;
 public int mittely;
 
+public int diff = 19;
 
 public boolean defeated = false;
-
 
 private int s = 10; //speed
 
@@ -39,17 +39,17 @@ private PanelListener listener; // Interface für die Kommunikation
 
 
 
-public Form(int w, int was) {
-	
+public Form(int w, int was, int difficutly) {
+	diff = difficutly;
 	random = new Random();
 	g=7;
 	random = new Random();
 	h=7;
 	
 	random = new Random();
-	g2 = random.nextInt(19) + 2; // ergibt Werte von 2 bis 20
+	g2 = random.nextInt(diff) + 2; // ergibt Werte von 2 bis 20
 
-	h2 = random.nextInt(19) + 2;
+	h2 = random.nextInt(diff) + 2;
 	
 	
 if (was == 0) {
@@ -146,9 +146,7 @@ public void onButtonClicked(int w) {
                 this.defeated = true;
                 Fenster.defeat += 1;
                 System.out.println(Fenster.defeat);
-                GamePanel.setGeld(100);
-
-
+                GamePanel.setGeld(10);
             }
         }
         else if (this.shapeType == 1){
@@ -312,6 +310,7 @@ private void movePanelSmoothThread(int targetX, int targetY, java.util.function.
             this.setLocation(x, y);
 
             if (x == 1600 && !defeated) {
+            	Fenster.defeat += 1;
                 GamePanel.setLeben(10);
             }
 
