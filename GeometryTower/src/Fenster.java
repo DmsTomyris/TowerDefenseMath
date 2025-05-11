@@ -238,16 +238,16 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
                                 defeat += 1;}
-                            if (defeat == 6) {
+                            if (defeat == 8) {
                                 defeat += 1;
                                 GenerateWave(10, 2, 17);}
-                            if (defeat == 15) {
+                            if (defeat == 19) {
                                 defeat += 1;
                                 GenerateWave(30, 2, 12);}
-                            if (defeat == 26) {
+                            if (defeat == 50) {
                                 defeat += 1;
                                 GenerateWave(17, 3, 21);}
-                            if (defeat == 42) {
+                            if (defeat == 68) {
                             	defeat += 1;
                                 warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
                                 layeredPane.setLayer(eulePanel, Integer.valueOf(2));
@@ -265,16 +265,16 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
                                 defeat += 1;}
-                            if (defeat == 6) {
+                            if (defeat == 11) {
                                 defeat += 1;
                                 GenerateWave(14, 2, 17);}
-                            if (defeat == 15) {
-                                defeat += 1;
-                                GenerateWave(15, 2, 24);}
                             if (defeat == 26) {
                                 defeat += 1;
-                                GenerateWave(17, 3, 19);}
+                                GenerateWave(15, 2, 24);}
                             if (defeat == 42) {
+                                defeat += 1;
+                                GenerateWave(17, 3, 19);}
+                            if (defeat == 60) {
                             	defeat += 1;
                                 warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
                                 layeredPane.setLayer(eulePanel, Integer.valueOf(2));
@@ -292,16 +292,16 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
                                 defeat += 1;}
-                            if (defeat == 6) {
+                            if (defeat == 11) {
                                 defeat += 1;
                                 GenerateWave(12, 1, 57);}
-                            if (defeat == 15) {
+                            if (defeat == 24) {
                                 defeat += 1;
                                 GenerateWave(17, 2, 21);}
-                            if (defeat == 26) {
+                            if (defeat == 32) {
                                 defeat += 1;
                                 GenerateWave(5, 3, 29);}
-                            if (defeat == 42) {
+                            if (defeat == 38) {
                             	defeat += 1;
                                 warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
                                 layeredPane.setLayer(eulePanel, Integer.valueOf(2));
@@ -319,16 +319,16 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
                                 defeat += 1;}
-                            if (defeat == 6) {
+                            if (defeat == 13) {
                                 defeat += 1;
                                 GenerateWave(14, 2, 17);}
-                            if (defeat == 15) {
+                            if (defeat == 28) {
                                 defeat += 1;
                                 GenerateWave(17, 3, 19);}
-                            if (defeat == 26) {
+                            if (defeat == 46) {
                                 defeat += 1;
                                 GenerateWave(14, 3, 40);}
-                            if (defeat == 42) {
+                            if (defeat == 61) {
                             	defeat += 1;
                                 warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
                                 layeredPane.setLayer(eulePanel, Integer.valueOf(2));
