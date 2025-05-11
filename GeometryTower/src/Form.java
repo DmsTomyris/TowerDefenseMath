@@ -137,7 +137,13 @@ public void onButtonClicked(int w) {
         if  (this.shapeType == 0) {
         	System.out.println(Tg.getText());
         	System.out.println(Tg.getText());
-            if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
+        	String input = Tg.getText().trim();
+        	if (!input.matches("\\d+")) {
+        	    System.out.println("Ungültige Eingabe: " + input);
+        	    return; // abbrechen
+        	}
+        	int eingabe = Integer.parseInt(input);
+        	if (eingabe == this.g2 + this.h2) {
                 Container parent = this.getParent(); // <-- wichtiger Fix
                 if (parent != null) {
                 	if (listener != null) {
