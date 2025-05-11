@@ -12,16 +12,38 @@ public class Startmenu extends JFrame implements WindowListener {
         JFrame frame = new JFrame("Startmenü");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1175, 600);
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(null); // For absolute layout
 
+        // Create a panel for the background with absolute layout
+        JPanel backgroundPanel = new JPanel(null);
+        backgroundPanel.setBounds(0, 0, 1175, 600);
+
+        // Load and scale the image
+        ImageIcon originalIcon = new ImageIcon("images/Menubild.png");
+        Image originalImage = originalIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(1175, 600, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        JLabel bildLabel = new JLabel(scaledIcon);
+        bildLabel.setBounds(0, 0, 1175, 600);
+        backgroundPanel.add(bildLabel);
+
+        // Create button panel with vertical BoxLayout
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setOpaque(false);
+
+        // Set size and location of buttonPanel explicitly (centered)
+        int panelWidth = 350;
+        int panelHeight = 300;
+        int panelX = (1175 - panelWidth) / 2;
+        int panelY = (600 - panelHeight) / 2;
+        buttonPanel.setBounds(panelX, panelY, panelWidth, panelHeight);
 
         JButton tutButton = new JButton("Tutorial");
         JButton levelButton = new JButton("Level");
         JButton playButton = new JButton("Endlos");
 
-        // Größe festlegen für alle Buttons
         Dimension buttonSize = new Dimension(300, 70);
         JButton[] buttons = {tutButton, levelButton, playButton};
         for (JButton b : buttons) {
@@ -50,6 +72,12 @@ public class Startmenu extends JFrame implements WindowListener {
             }
             buttonPanel.revalidate();
             buttonPanel.repaint();
+            // Also revalidate and repaint the parent container to force refresh
+            Container parent = buttonPanel.getParent();
+            if (parent != null) {
+                parent.revalidate();
+                parent.repaint();
+            }
         });
 
         playButton.addActionListener(e -> Endlos = new Fenster("Endlos", 6));
@@ -57,13 +85,15 @@ public class Startmenu extends JFrame implements WindowListener {
         buttonPanel.add(Box.createVerticalGlue());
         for (int i = 0; i < buttons.length; i++) {
             buttonPanel.add(buttons[i]);
-            if (i < buttons.length -1) {
-                buttonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            if (i < buttons.length - 1) {
+                buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
             }
         }
         buttonPanel.add(Box.createVerticalGlue());
 
-        frame.add(buttonPanel, BorderLayout.CENTER);
+        backgroundPanel.add(buttonPanel);
+
+        frame.add(backgroundPanel);
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -81,3 +111,4 @@ public class Startmenu extends JFrame implements WindowListener {
         new Startmenu();
     }
 }
+

@@ -11,6 +11,8 @@ private Form panel[];
 private int framewidth = 1500;
 private int frameheight = 800;
 
+public static int globallevel;
+
 public JTextField Tg;
 public int w = 0; // while counter
 public int a = 5; // Anzahl der Panels
@@ -34,6 +36,7 @@ JLayeredPane layeredPane = getLayeredPane();
 
 public Fenster(String titel, int level) {
 super(titel);
+globallevel=level;
 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 this.setResizable(false);
 this.setUndecorated(false);
@@ -137,49 +140,70 @@ layeredPane.add(warnLabel, Integer.valueOf(4));
 
 startAutoRefresh();
 
-Timer initWaveTimer = new Timer(500, new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        GenerateWave(3, 1); // Erste Welle starten
 
-        // Einführung + Überwachung von defeat-Werten
-        Timer tutorialWatcher = new Timer(500, null);
-        tutorialWatcher.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                if (defeat == 0 && start == 2) {
-                	defeat += 1;
-                    warnLabel.setText("<html>Schnell! Drücke auf ein Viereck!<br>Du besiegst es, indem du den Flächeninhalt ausrechnest!<br>Multipliziere die beiden Zahlen!</html>");
-                }
-                if (defeat == 4) {
-                    defeat += 1;
-                    layeredPane.setLayer(eulePanel, Integer.valueOf(0));
-                    layeredPane.setLayer(bubblePanel, Integer.valueOf(0));
-                    layeredPane.setLayer(warnLabel, Integer.valueOf(0));
-                    GenerateWave(8, 1); // Zweite Welle
-                }
-                if (defeat == 13) {
-                	defeat += 1;
-                	GenerateWave(10, 2); // Zweite Welle
-                	warnLabel.setText("<html>Nimm dich vor den Dreiecken in Acht!<br>Quadriere die angezeigte Zahl</html>");
-                	layeredPane.setLayer(eulePanel, Integer.valueOf(2));
-                    layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
-                    layeredPane.setLayer(warnLabel, Integer.valueOf(4));
-                }
-                if (defeat == 24) {
-                	defeat += 1;
-                	GenerateWave(15, 3); // Zweite Welle
-                	warnLabel.setText("<html>Du kennst das Spiel schon!<br>Multipliziere die Zahlen in den Kreisen</html>");
-                }
-                if (defeat == 40) {
-                    tutorialWatcher.stop();
-                    System.out.println("Tutorial beendet");
-                }
-            }
-        });
-        tutorialWatcher.start();
-    }
-});
-initWaveTimer.setRepeats(false);
-initWaveTimer.start();
+if (level==0) {
+	Timer initWaveTimer = new Timer(500, new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+	        GenerateWave(3, 1); // Erste Welle starten
+	
+	        // Einführung + Überwachung von defeat-Werten
+	        Timer tutorialWatcher = new Timer(500, null);
+	        tutorialWatcher.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent evt) {
+	                if (defeat == 0 && start == 2) {
+	                	defeat += 1;
+	                    warnLabel.setText("<html>Schnell! Drücke auf ein Viereck!<br>Du besiegst es, indem du den Flächeninhalt ausrechnest!<br>Multipliziere die beiden Zahlen!</html>");
+	                }
+	                if (defeat == 4) {
+	                    defeat += 1;
+	                    layeredPane.setLayer(eulePanel, Integer.valueOf(0));
+	                    layeredPane.setLayer(bubblePanel, Integer.valueOf(0));
+	                    layeredPane.setLayer(warnLabel, Integer.valueOf(0));
+	                    GenerateWave(8, 1); // Zweite Welle
+	                }
+	                if (defeat == 13) {
+	                	defeat += 1;
+	                	GenerateWave(10, 2); // Zweite Welle
+	                	warnLabel.setText("<html>Nimm dich vor den Dreiecken in Acht!<br>Quadriere die angezeigte Zahl</html>");
+	                	layeredPane.setLayer(eulePanel, Integer.valueOf(2));
+	                    layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
+	                    layeredPane.setLayer(warnLabel, Integer.valueOf(4));
+	                }
+	                if (defeat == 24) {
+	                	defeat += 1;
+	                	GenerateWave(15, 3); // Zweite Welle
+	                	warnLabel.setText("<html>Du kennst das Spiel schon!<br>Multipliziere die Zahlen in den Kreisen</html>");
+	                }
+	                if (defeat == 40) {
+	                    tutorialWatcher.stop();
+	                    System.out.println("Tutorial beendet");
+	                }
+	            }
+	        });
+	        tutorialWatcher.start();
+	    }
+	});
+	initWaveTimer.setRepeats(false);
+	initWaveTimer.start();
+	}
+else if (level==1) {
+	
+}
+else if (level==2) {
+	
+}
+else if (level==3) {
+	
+}
+else if (level==4) {
+	
+}
+else if (level==5) {
+	
+}
+else if (level==6) {
+	
+}
 }
 
 

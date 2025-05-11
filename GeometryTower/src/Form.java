@@ -143,7 +143,7 @@ public void onButtonClicked(int w) {
                 this.defeated = true;
                 Fenster.defeat += 1;
                 System.out.println(Fenster.defeat);
-                GamePanel.setGeld(100);
+                GamePanel.setGeld(10);
             }
         }
         else if (this.shapeType == 1){
@@ -155,7 +155,7 @@ public void onButtonClicked(int w) {
                 this.defeated = true;
                 Fenster.defeat += 1;
                 System.out.println(Fenster.defeat);
-                GamePanel.setGeld(100);
+                GamePanel.setGeld(20);
             }
         }
         else if (this.shapeType == 2) {
@@ -165,7 +165,7 @@ public void onButtonClicked(int w) {
                     parent.remove(this);
                 }
                 this.defeated = true;
-                GamePanel.setGeld(100);
+                GamePanel.setGeld(30);
                 Fenster.defeat += 1;
                 System.out.println(Fenster.defeat);
             }

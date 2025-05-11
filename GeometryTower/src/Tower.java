@@ -13,6 +13,7 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 	public int posx=0;
 	public int posy=0;
 	public static int radius=50; //größe vom tower
+	private JLabel En1;
 
 	public int typ=0;
 	
@@ -36,6 +37,14 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		this.setSize(radius + 10, radius + 10); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
 		//System.out.println(posy);
+		
+		En1 = new JLabel("-");
+		En1.setLocation(((radius-10)/2),(radius-15)/2);
+		En1.setSize(10, 10);
+		En1.setForeground(Color.WHITE);
+		En1.setFont(En1.getFont().deriveFont(30f));
+		En1.setOpaque(false);
+		this.add(En1);
 		
 	}
 

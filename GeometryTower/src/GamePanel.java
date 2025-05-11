@@ -8,6 +8,7 @@ import java.awt.event.WindowListener;
 public class GamePanel extends JPanel implements WindowListener, ActionListener{
 private static int leben;
 private static int geld;
+private static int towercost=-100;
 private static JLabel lebenLabel;
 private static JLabel geldLabel;
 public JButton kmin;
@@ -50,15 +51,28 @@ this.setVisible(true);
 
 
 //Button
-kmin = new JButton("Add Tower");
-kmin.setBounds(10, 90, 100, 30);
+kmin = new JButton("Minus-Turm 100$");
+kmin.setBounds(10, 90, 150, 30);
 kmin.addActionListener(e -> {
-    canAddTower = true; // Set flag to true when button is pressed
-});
+	if (getGeld() >= 100) {
+		setGeld(towercost);
+		canAddTower = true; // Set flag to true when button is pressed
+}});
 add(kmin);
 repaint();
 this.setVisible(true);
+
+
 }
+
+protected void paintComponent(Graphics g) {
+	super.paintComponent(g); // Ruft paintComponent von JPanel auf, um das Panel zu initialisieren
+	
+	    // Kreis zeichnen, wenn shapeType == 2
+	    g.setColor(Color.BLUE); // Setze die Farbe des Kreises auf türkis
+	    g.fillOval(162, 90, 30, 30); // Kreis an (posx, posy) mit dem Durchmesser h zeichnen
+	
+	}
 
 public boolean canAddTower() {
     return canAddTower;
@@ -76,7 +90,7 @@ lebenLabel.setText("Leben: " + GamePanel.leben);
 
 public static void setGeld(int geld) {
 GamePanel.geld += geld;
-geldLabel.setText("Geld: " + geld +"$");
+geldLabel.setText("Geld: " + GamePanel.geld +"$");
 }
 
 public int getLeben() {
