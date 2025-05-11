@@ -146,7 +146,7 @@ public void onButtonClicked(int w) {
                 this.defeated = true;
                 Fenster.defeat += 1;
                 System.out.println(Fenster.defeat);
-                GamePanel.setGeld(10);
+                GamePanel.setGeld(100);
 
 
             }
@@ -273,17 +273,30 @@ public void defeated() {
 private void movePanelSmoothThread(int targetX, int targetY, java.util.function.Supplier<Integer> speedSupplier, Runnable onComplete) {
     new Thread(() -> {
         while (x != targetX || y != targetY) {
+        	System.out.println(s);
         	for (int i=0; i<=Fenster.towerzahl;i++) {
         		mittelx=(int) (x+(0.5*g*scale));
         		mittely=(int) (y+(0.5*h*scale));
+        		//System.out.println((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely));
+//    			System.out.println(Tower.radius/2);
         		//System.out.println(mittelx);
         		//System.out.println(x);
         		//s-=1;
-        		if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < Tower.radius/2) {
-        			//deletetower();
-        		} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < TowerRange.range/2) {
+        		if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < TowerRange.range/2) {
         		    s = 20;
-        		} else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) > TowerRange.range/2) {
+//        		    System.out.println("kach");
+        		}
+//        		if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) < Tower.radius/2) {
+//        			Fenster.towerpos[i][0]=0;
+//        			Fenster.towerpos[i][1]=0;
+//        			
+//        			Fenster.tower[i].destroytower();
+//        			Fenster.trange[i].destroyRange();
+//
+//        			System.out.println("kach");
+//        			s = 10;
+//        		  } 
+        		else if (Math.sqrt((Fenster.towerpos[i][0]-mittelx)*(Fenster.towerpos[i][0]-mittelx)+(Fenster.towerpos[i][1]-mittely)*(Fenster.towerpos[i][1]-mittely)) > TowerRange.range/2) {
         			if (Fenster.towerpos[i][0] != 0) {
        
         			s = 10;

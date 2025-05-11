@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,15 +15,17 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 	public int posy=0;
 	public static int radius=50; //größe vom tower
 	private JLabel En1;
+	private PanelListener listener; // Interface für die Kommunikation
+
 
 	public int typ=0;
 	
 
-	public Tower(int typ) {
+	public Tower(int typ, int posx, int posy) {
 		this.typ=typ;
 		
 		if (typ == 0) {
-			Minus();
+			Minus(posx, posy);
 			}
 		repaint();
 		this.setVisible(true);
@@ -30,11 +33,11 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		
 	}
 	
-	public void Minus() {
+	public void Minus(int posx, int posy) {
 		this.setLayout(null);
 		this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
 		this.setOpaque(false); // Hiermit machen wir das Panel transparent
-		this.setSize(radius + 10, radius + 10); // Panelgröße etwas größer als der Kreis
+		this.setSize(radius , radius ); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
 		//System.out.println(posy);
 		
@@ -58,14 +61,14 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		}
 		}
 	
-	public void range() {
-		this.setLayout(null);
-		this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
-		this.setOpaque(false); // Hiermit machen wir das Panel transparent
-		this.setSize(TowerRange.range + 10, TowerRange.range + 10); // Panelgröße etwas größer als der Kreis
-		this.setLocation(posx, posy);
-	}
-	
+//	public void range() {
+//		this.setLayout(null);
+//		this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
+//		this.setOpaque(false); // Hiermit machen wir das Panel transparent
+//		this.setSize(TowerRange.range + 10, TowerRange.range + 10); // Panelgröße etwas größer als der Kreis
+//		this.setLocation(posx, posy);
+//	}
+//	
 	protected void paintComponent1(Graphics g) {
 		super.paintComponent(g); // Ruft paintComponent von JPanel auf, um das Panel zu initialisieren
 		
@@ -74,6 +77,22 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 		    g.setColor(Color.getHSBColor(63, 136, 143)); // Setze die Farbe des Kreises auf türkis
 		    g.fillOval(0, 0, this.radius, this.radius); // Kreis an (posx, posy) mit dem Durchmesser h zeichnen
 		}
+		}
+	
+	public void destroytower() {
+		Container parent = this.getParent(); // <-- wichtiger Fix
+        if (parent != null) {
+        	if (listener != null) {
+        	    listener.onPanelRemoved(this); // << HIER
+        	}
+            parent.remove(this); // statt this.remove(this)
+        }
+	}
+	
+	public interface PanelListener {
+		void onButtonClicked(int w);
+
+		void onPanelRemoved(Tower tower);
 		}
 	
 	@Override
@@ -120,6 +139,11 @@ public class Tower extends JPanel implements WindowListener, ActionListener{
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void destroyRange() {
 		// TODO Auto-generated method stub
 		
 	}

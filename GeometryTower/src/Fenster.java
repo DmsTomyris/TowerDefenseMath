@@ -33,6 +33,7 @@ public static int towerzahl =0;
 public static boolean Schliessen = false;
 
 public static Tower[] tower=new Tower[12];
+public static TowerRange[] trange=new TowerRange[12];
 
 JLayeredPane layeredPane = getLayeredPane();
 
@@ -60,7 +61,7 @@ this.addMouseListener(new MouseAdapter() {
     @Override
     public void mousePressed(MouseEvent e) {
         if (gamePanel.canAddTower() && SwingUtilities.isLeftMouseButton(e)) {
-            tower[towerzahl]  = new Tower(0); // Create a new Tower
+            tower[towerzahl]  = new Tower(0, (e.getX())-6, (e.getY())-29); // Create a new Tower
             tower[towerzahl].posx=(e.getX())-6;
             tower[towerzahl].posy=(e.getY())-29;
             towerpos[towerzahl][0]=tower[towerzahl].posx;
@@ -73,12 +74,12 @@ this.addMouseListener(new MouseAdapter() {
             
 
             
-            TowerRange range = new TowerRange(TowerRange.range, tower[towerzahl].posx, tower[towerzahl].posy);
-            range.setBounds(tower[towerzahl].posx-(TowerRange.range/2), tower[towerzahl].posy-(TowerRange.range/2), TowerRange.range, TowerRange.range); // Set tower position to mouse position
+            trange[towerzahl] = new TowerRange(TowerRange.range, tower[towerzahl].posx, tower[towerzahl].posy);
+            trange[towerzahl].setBounds(tower[towerzahl].posx-(TowerRange.range/2), tower[towerzahl].posy-(TowerRange.range/2), TowerRange.range, TowerRange.range); // Set tower position to mouse position
             
             
             addTower(tower[towerzahl]); // Add tower to the window
-            addTowerRange(range);
+            addTowerRange(trange[towerzahl]);
             
             gamePanel.resetTowerFlag(); // Reset the flag
             towerzahl+=1;
@@ -146,7 +147,7 @@ startAutoRefresh();
 if (level==0) {
 	Timer initWaveTimer = new Timer(500, new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-	        GenerateWave(3, 1); // Erste Welle starten
+	        GenerateWave(2, 1); // Erste Welle starten
 	
 	        // Einführung + Überwachung von defeat-Werten
 	        Timer tutorialWatcher = new Timer(500, null);
