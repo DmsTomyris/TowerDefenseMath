@@ -11,7 +11,9 @@ private Form panel[];
 private int framewidth = 1500;
 private int frameheight = 800;
 
+
 public static int globallevel;
+
 private int waveiterator = 0;
 
 public JTextField Tg;

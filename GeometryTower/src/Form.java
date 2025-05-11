@@ -147,6 +147,8 @@ public void onButtonClicked(int w) {
                 Fenster.defeat += 1;
                 System.out.println(Fenster.defeat);
                 GamePanel.setGeld(10);
+
+
             }
         }
         else if (this.shapeType == 1){
