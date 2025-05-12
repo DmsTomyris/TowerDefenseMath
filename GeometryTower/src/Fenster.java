@@ -82,16 +82,12 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
             }
         });
 
-        random = new Random();
-
-
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 refreshTextField();
             }
         });
-
 
         JButton btnStartMenu = new JButton("Menu");
         btnStartMenu.setBounds(10, 10, 100, 20);
@@ -112,8 +108,6 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         bildLabel.setVerticalAlignment(SwingConstants.TOP);
         backgroundPanel.add(bildLabel);
         layeredPane.add(backgroundPanel, Integer.valueOf(0)); // Hintergrund in Ebene 0 setzen
-
-        // Panels auf Ebene 1 hinzufügen
 
         JLabel euleLabel = new JLabel(new ImageIcon("images/Eule3.png"));
         euleLabel.setBounds(0, 0, framewidth, frameheight); // gleiche Größe, gleiche Position
@@ -211,7 +205,6 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 layeredPane.setLayer(warnLabel, Integer.valueOf(4));
                                 btnStartMenu.setBounds(850, 350, 280, 50);
                                 tutorialWatcher.stop();
-                                System.out.println("Tutorial beendet");
                             }}});tutorialWatcher.start();}});initWaveTimer.setRepeats(false);initWaveTimer.start();
         } 
         else if (level == 1) {
@@ -411,13 +404,9 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
             });
             initWaveTimer.setRepeats(false);
             initWaveTimer.start();
-        }
-
-
-    }
+            }}
 
     public void cleanup() {
-        System.out.println("Cleanup gestartet.");
 
         if (spawnTimer != null) spawnTimer.stop();
         if (tutorialWatcher != null) tutorialWatcher.stop();
@@ -457,6 +446,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         refreshTimer.setRepeats(true);
         refreshTimer.start();
     }
+    
     public static void refreshTextField() {
     	for (Form p : Fenster.panel) {
             if (p != null) {
@@ -468,14 +458,12 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         layeredPane.add(tower, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
         layeredPane.revalidate(); // Layout aktualisieren
         layeredPane.repaint(); // Panel neu zeichnen
-        System.out.println("Tower wurde zum Fenster hinzugefügt.");
     }
 
     public void addTowerRange(TowerRange range) {
         layeredPane.add(range, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
         layeredPane.revalidate(); // Layout aktualisieren
         layeredPane.repaint(); // Panel neu zeichnen
-        System.out.println("Range wurde zum Fenster hinzugefügt.");
     }
 
     public void GenerateWave(int gegnerAnzahl, int gegnerArt, int d) {
