@@ -121,7 +121,7 @@ else if (was == 2) {
 }
 
 public void onButtonClicked(int w) {
-
+	Fenster.refreshTextField();
     Tg = new JTextField();
 	this.remove(Tg);
     Tg.setBounds(10, 0, 50, 25);
@@ -134,11 +134,10 @@ public void onButtonClicked(int w) {
         //System.out.println(Tg.getText() + " " + (this.g2 * this.h2));
         this.remove(Tg);
         Be.setVisible(true);
-        
+        String inhalt = Tg.getText();
+        if (inhalt!="") {
         if  (this.shapeType == 0) {
         	System.out.println(Tg.getText());
-        	
-        	if (Tg.getText()!="") {
         		System.out.println(Tg.getText());
             if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
                 Container parent = this.getParent(); // <-- wichtiger Fix
@@ -402,8 +401,9 @@ public void windowDeactivated(WindowEvent e) {
 public void refresh() {
 	if (Tg != null) {
 	this.remove(Tg);
+	addButton(0);
 	}
-	onButtonClicked(0);
+	//onButtonClicked(0);
 	
 }
 

@@ -434,11 +434,11 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         refreshTimer.setRepeats(true);
         refreshTimer.start();
     }
-    public void refreshTextField() {
+    public static void refreshTextField() {
     	for (Form p : Fenster.panel) {
             if (p != null) {
                 p.refresh();
-                break;
+                
     }}}
 
     public void addTower(Tower tower) {
