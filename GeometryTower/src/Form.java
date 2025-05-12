@@ -113,17 +113,6 @@ else if (was == 2) {
 
 }
 
-public void Tod() {
-	Container parent = this.getParent(); // <-- wichtiger Fix
-    if (parent != null) {
-    	if (listener != null) {
-    	    listener.onPanelRemoved(this); // << HIER
-    }
-    	parent.remove(this); // statt this.remove(this)	
-    }
-	
-	
-}
 
 public void onButtonClicked(int w) {
 	System.out.println(shapeType);

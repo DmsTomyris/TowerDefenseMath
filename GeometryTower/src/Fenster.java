@@ -43,12 +43,15 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
 
     JLayeredPane layeredPane = getLayeredPane();
     
+    
+    //Verlorenscreen
     static JLabel defeatLabel = new JLabel("Du hast verloren");
     static JPanel defeatPanel = new JPanel();
     static JPanel defeatPanelBackground = new JPanel();
     static JButton btnStartMenu = new JButton("Menu");
+    //Verlorenscreen
 
-    public Fenster(String titel, int level) {
+    public Fenster(String titel, int level) {//Hauptfenster 
         super(titel);
         globallevel = level;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
