@@ -257,8 +257,6 @@ else if (shapeType == 2) {
 }
 }
 
-
-
 private void movePanelSmoothThread(int targetX, int targetY, java.util.function.Supplier<Integer> speedSupplier, Runnable onComplete) {
     new Thread(() -> {
         while (x != targetX || y != targetY) {
@@ -302,12 +300,6 @@ private void movePanelSmoothThread(int targetX, int targetY, java.util.function.
         }
     }).start();
 }
-
-
-
-
-
-
 
 public void setPanelListener(PanelListener listener) {
 this.listener = listener;
