@@ -41,7 +41,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
 	int zahlenhöhe = 10; //für Endlosmodus, höhe der Zahlen
 	int gegner_insgesamt = 0; //für endlosmodus besiegte gegner
 
-    JLayeredPane layeredPane = getLayeredPane();
+    JLayeredPane layeredPane = getLayeredPane(); // Für mehrere Layers, um sachen ordentlich anzuordnen
     
     
     //Verlorenscreen
@@ -51,7 +51,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
     static JButton btnStartMenu = new JButton("Menu");
     //Verlorenscreen
 
-    public Fenster(String titel, int level) {//Hauptfenster 
+    public Fenster(String titel, int level) {//Hauptfenster - hier wird das Spiel gespielt
         super(titel);
         globallevel = level;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,11 +64,12 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
 
         Schliessen = true;
 
-        GamePanel gamePanel = new GamePanel(this);
+        //Fügt gamepanel zum Fenster hinzu
+        GamePanel gamePanel = new GamePanel(this); 
         layeredPane.add(gamePanel, Integer.valueOf(10));
+        //Fügt gamepanel zum Fenster hinzu
 
-        // Add mouse listener for left-clicks
-        this.addMouseListener(new MouseAdapter() {
+        this.addMouseListener(new MouseAdapter() {// Setzt den Tower an die Stelle wo geklickt wurde, geht nur, wenn der Tower vorher gekauft wurde.
             @Override
             public void mousePressed(MouseEvent e) {
                 if (gamePanel.canAddTower() && SwingUtilities.isLeftMouseButton(e)) {
@@ -90,77 +91,68 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
             }
         });
 
-        this.addMouseListener(new MouseAdapter() {
+        this.addMouseListener(new MouseAdapter() {// Wenn geklicht wird, wird refreshed welches Textfeld grad im Fokus ist. Sie refreshTextField()
             @Override
             public void mouseClicked(MouseEvent e) {
                 refreshTextField();
             }
         });
 
-        
+        //Menubutton wird erstellt
         btnStartMenu.setBounds(10, 10, 100, 20);
         btnStartMenu.setOpaque(false);
         btnStartMenu.addActionListener(e -> {
-            cleanup(); // Ensure cleanup is called before disposing
+            cleanup();
             SwingUtilities.getWindowAncestor(btnStartMenu).dispose();
         });
         layeredPane.add(btnStartMenu, Integer.valueOf(8));
+        //Menubutton wird erstellt
 
-        // Hintergrundbild in JPanel setzen
-        JPanel backgroundPanel = new JPanel(null); // Absolutes Layout
+        //Alle grafischen Elemente werden vorbereitet
+        JPanel backgroundPanel = new JPanel(null);
         backgroundPanel.setBounds(0, 0, framewidth, frameheight);
-
         JLabel bildLabel = new JLabel(new ImageIcon("images/Map1.png"));
-        bildLabel.setBounds(0, 0, framewidth, frameheight); // Sicherstellen, dass es ganz links oben startet
+        bildLabel.setBounds(0, 0, framewidth, frameheight);
         bildLabel.setHorizontalAlignment(SwingConstants.LEFT);
         bildLabel.setVerticalAlignment(SwingConstants.TOP);
         backgroundPanel.add(bildLabel);
-        layeredPane.add(backgroundPanel, Integer.valueOf(0)); // Hintergrund in Ebene 0 setzen
-
+        layeredPane.add(backgroundPanel, Integer.valueOf(0));
         JLabel euleLabel = new JLabel(new ImageIcon("images/Eule3.png"));
-        euleLabel.setBounds(0, 0, framewidth, frameheight); // gleiche Größe, gleiche Position
+        euleLabel.setBounds(0, 0, framewidth, frameheight);
         euleLabel.setHorizontalAlignment(SwingConstants.LEFT);
         euleLabel.setVerticalAlignment(SwingConstants.TOP);
-
-        JPanel eulePanel = new JPanel(null); // Absolutes Layout
+        JPanel eulePanel = new JPanel(null);
         eulePanel.setBounds(1100, 300, framewidth, frameheight);
-        eulePanel.setOpaque(false); // macht das Panel durchsichtig
+        eulePanel.setOpaque(false);
         eulePanel.add(euleLabel);
-
         JLabel bubbleLabel = new JLabel(new ImageIcon("images/sprechblase1.png"));
-        bubbleLabel.setBounds(0, 0, framewidth, frameheight); // gleiche Größe, gleiche Position
+        bubbleLabel.setBounds(0, 0, framewidth, frameheight);
         bubbleLabel.setHorizontalAlignment(SwingConstants.LEFT);
         bubbleLabel.setVerticalAlignment(SwingConstants.TOP);
-
-        JPanel bubblePanel = new JPanel(null); // Absolutes Layout
+        JPanel bubblePanel = new JPanel(null);
         bubblePanel.setBounds(700, 100, framewidth, frameheight);
-        bubblePanel.setOpaque(false); // macht das Panel durchsichtig
+        bubblePanel.setOpaque(false);
         bubblePanel.add(bubbleLabel);
-
         JLabel warnLabel = new JLabel("<html>Schnell! Drücke auf ein Viereck!<br>Du besiegst es, indem du die Aufgabe ausrechnest!<br>Addiere die beiden Zahlen!</html>");
-        warnLabel.setBounds(800, 230, 400, 120); // Position und Größe
+        warnLabel.setBounds(800, 230, 400, 120); 
         warnLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        warnLabel.setOpaque(true); // Hintergrund sichtbar machen (optional)
-        warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
-        
-        
-    	defeatLabel.setBounds(0, 0, 0, 0); // gleiche Größe, gleiche Position
-    	defeatLabel.setFont(new Font("Arial", Font.BOLD, 40)); // Schriftart, Stil und Größe setzen
+        warnLabel.setOpaque(true);
+        warnLabel.setBackground(java.awt.Color.WHITE);
+    	defeatLabel.setBounds(0, 0, 0, 0);
+    	defeatLabel.setFont(new Font("Arial", Font.BOLD, 40));
     	defeatLabel.setHorizontalAlignment(SwingConstants.LEFT);
     	defeatLabel.setVerticalAlignment(SwingConstants.TOP);
-    	layeredPane.add(defeatLabel, Integer.valueOf(7)); // Tower in Ebene 3 hinzufügen
-    	
-    	defeatPanel.setBounds(0, 0, 0, 0); // gleiche Größe, gleiche Position
-    	layeredPane.add(defeatPanel, Integer.valueOf(6)); // Tower in Ebene 3 hinzufügen
-    	
-    	defeatPanelBackground.setBounds(0, 0, 0, 0); // gleiche Größe, gleiche Position
-    	defeatPanelBackground.setBackground(Color.BLACK);  // Hintergrundfarbe auf Schwarz setzen
-    	layeredPane.add(defeatPanelBackground, Integer.valueOf(5)); // Tower in Ebene 3 hinzufügen
-
-
+    	layeredPane.add(defeatLabel, Integer.valueOf(7));  	
+    	defeatPanel.setBounds(0, 0, 0, 0);
+    	layeredPane.add(defeatPanel, Integer.valueOf(6));
+    	defeatPanelBackground.setBounds(0, 0, 0, 0);
+    	defeatPanelBackground.setBackground(Color.BLACK);
+    	layeredPane.add(defeatPanelBackground, Integer.valueOf(5));
+    	//Alle grafischen Elemente werden vorbereitet
 
         startAutoRefresh();
-
+        
+        //Levelfunktion - Generiert Waves mit Abstand, sorgt auch für flüssiges Tutorial. Waves und Level sind sehr individuel anpassbar, dafür ist aber auch pro Level 30 Zeilen Code Notwendig
         if (level == 0) {
             initWaveTimer = new Timer(500, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -282,7 +274,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 GenerateWave(17, 3, 21);}
                             if (defeat == 68) {
                             	defeat += 1;
-                                warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
+                                warnLabel.setText("<html>Du hast Level 2 geschafft!</html>");
                                 layeredPane.setLayer(eulePanel, Integer.valueOf(2));
                                 layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
                                 layeredPane.setLayer(warnLabel, Integer.valueOf(4));
@@ -312,7 +304,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 GenerateWave(17, 3, 19);}
                             if (defeat == 60) {
                             	defeat += 1;
-                                warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
+                                warnLabel.setText("<html>Du hast Level 3 geschafft!</html>");
                                 layeredPane.setLayer(eulePanel, Integer.valueOf(2));
                                 layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
                                 layeredPane.setLayer(warnLabel, Integer.valueOf(4));
@@ -342,7 +334,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 GenerateWave(5, 3, 29);}
                             if (defeat == 38) {
                             	defeat += 1;
-                                warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
+                                warnLabel.setText("<html>Du hast Level 4 geschafft!</html>");
                                 layeredPane.setLayer(eulePanel, Integer.valueOf(2));
                                 layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
                                 layeredPane.setLayer(warnLabel, Integer.valueOf(4));
@@ -352,7 +344,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         } else if (level == 5) {
         	initWaveTimer = new Timer(500, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    GenerateWave(12, 1, 187); // Erste Welle starten
+                    GenerateWave(12, 3, 10); // Erste Welle starten
                     tutorialWatcher = new Timer(500, null);
                     tutorialWatcher.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
@@ -363,16 +355,16 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 defeat += 1;}
                             if (defeat == 13) {
                                 defeat += 1;
-                                GenerateWave(14, 2, 17);}
+                                GenerateWave(14, 2, 42);}
                             if (defeat == 28) {
                                 defeat += 1;
-                                GenerateWave(17, 3, 19);}
+                                GenerateWave(17, 3, 69);}
                             if (defeat == 46) {
                                 defeat += 1;
-                                GenerateWave(14, 3, 40);}
+                                GenerateWave(14, 3, 187);}
                             if (defeat == 61) {
                             	defeat += 1;
-                                warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
+                                warnLabel.setText("<html>Du hast Level 5 geschafft!</html>");
                                 layeredPane.setLayer(eulePanel, Integer.valueOf(2));
                                 layeredPane.setLayer(bubblePanel, Integer.valueOf(3));
                                 layeredPane.setLayer(warnLabel, Integer.valueOf(4));
@@ -441,9 +433,9 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
             });
             initWaveTimer.setRepeats(false);
             initWaveTimer.start();
-            }}
+            }}//Levelfunktion - Generiert Waves mit Abstand, sorgt auch für flüssiges Tutorial
 
-    public void cleanup() {
+    public void cleanup() { // Ist für den Menu Button - Alle prozesse werden abgebrochen, alle Gegner entfernt
 
         if (spawnTimer != null) spawnTimer.stop();
         if (tutorialWatcher != null) tutorialWatcher.stop();
@@ -472,14 +464,14 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         layeredPane.repaint();
     }
     
-    public static void defeat_screen() {
+    public static void defeat_screen() { // Zeigt den defeat Screen an
     	defeatLabel.setBounds(600, 300, 500, 500); // gleiche Größe, gleiche Position    	
     	defeatPanel.setBounds(100, 100, 1300, 600); // gleiche Größe, gleiche Position
     	defeatPanelBackground.setBounds(0, 0, 2000, 1000); // gleiche Größe, gleiche Position
     	btnStartMenu.setBounds(610, 400, 280, 50);
     }
 
-    private void startAutoRefresh() {
+    private void startAutoRefresh() { // Refreshed alle Grafikelemente alle 0,1 Sekunden um die grafische Ausgabe mit den Hintergrundprozessen zu synchronisieren
         refreshTimer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -491,26 +483,26 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         refreshTimer.start();
     }
     
-    public static void refreshTextField() {
+    public static void refreshTextField() { // Aktualisiert welche Funktion das Textfeld hat, damit nur ein Textfeld gleichzeitg generiert wird
     	for (Form p : Fenster.panel) {
             if (p != null) {
                 p.refresh();
                 
     }}}
 
-    public void addTower(Tower tower) {
+    public void addTower(Tower tower) { //Fügt den Tower visuell hinzu
         layeredPane.add(tower, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
         layeredPane.revalidate(); // Layout aktualisieren
         layeredPane.repaint(); // Panel neu zeichnen
     }
 
-    public void addTowerRange(TowerRange range) {
+    public void addTowerRange(TowerRange range) { // Fügt die Towerrange visuell hinzu
         layeredPane.add(range, Integer.valueOf(3)); // Tower in Ebene 3 hinzufügen
         layeredPane.revalidate(); // Layout aktualisieren
         layeredPane.repaint(); // Panel neu zeichnen
     }
 
-    public void GenerateWave(int gegnerAnzahl, int gegnerArt, int d) {
+    public void GenerateWave(int gegnerAnzahl, int gegnerArt, int d) { // Generiert eine Wave, es kann festgelegt werden, wie viele Gegner, wie viele Gegner-Arten und wie hoch die Zahlen auf den Gegnern gehen sollen
         waveiterator = 0;
         panel = new Form[gegnerAnzahl + 1];
         w = 0;
@@ -535,7 +527,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         spawnTimer.start();
     }
 
-    public void focusNext() {
+    public void focusNext() {//Das Textfeld vom nächsten Gegner wird angezeigt siehe onPanelRemoved
         waveiterator += 1;
         if (panel[waveiterator] != null && panel[waveiterator].isVisible()) {
             panel[waveiterator].onButtonClicked(0);
@@ -543,39 +535,35 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
     }
 
     @Override
-    public void onPanelRemoved(Form form) {
+    public void onPanelRemoved(Form form) { // focusNext() wurd ausgeführt - siehe Form.onButtonClicked()
         focusNext();
     }
 
-    @Override
-    public void windowOpened(WindowEvent e) {}
-
+    
     @Override
     public void windowClosing(WindowEvent e) {
     	cleanup(); // Ensure cleanup is called before closing
         System.exit(0);
     }
-
+    
+    //Nicht benötigte Funktionen
+    @Override
+    public void windowOpened(WindowEvent e) {}
     @Override
     public void windowClosed(WindowEvent e) {}
-
     @Override
     public void windowIconified(WindowEvent e) {}
-
     @Override
     public void windowDeiconified(WindowEvent e) {}
-
     @Override
     public void windowActivated(WindowEvent e) {}
-
     @Override
     public void windowDeactivated(WindowEvent e) {}
-
     @Override
     public void actionPerformed(ActionEvent e) {}
-
     @Override
     public void onButtonClicked(int w) {
         // TODO Auto-generated method stub
     }
+    //Nicht benötigte Funktionen
 }

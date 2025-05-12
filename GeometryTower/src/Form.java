@@ -7,7 +7,7 @@ import java.awt.event.WindowListener;
 import java.util.Random;
 
 
-public class Form extends JPanel implements WindowListener, ActionListener{
+public class Form extends JPanel implements WindowListener, ActionListener{//Jede Form ist ein Gegener
 public int g; //public weil brauchen es in Fenster
 public int h; //public weil brauchen es in Fenster.; Mindestens 25 sonst zu klein
 public int g2; //public weil brauchen es in Fenster
@@ -26,25 +26,22 @@ public int diff = 19;
 
 public boolean defeated = false;
 
-private int s = 10; //speed
-
+private int s = 10; //speed, weniger ist schneller
 public int shapeType = 0; // 0 für Rechteck, 1 für Dreieck, 2 für Kreis
-
 private PanelListener listener; // Interface für die Kommunikation
 
-public Form(int w, int was, int difficutly) {
+public Form(int w, int was, int difficutly) {//Konstruktor für Gegner
+	//Legt die größe für die Formen fest, legt außerdem die Werte für die Aufgabe fest
 	diff = difficutly;
-	random = new Random();
 	g=7;
-	random = new Random();
 	h=7;
-	
 	random = new Random();
-	g2 = random.nextInt(diff) + 2; // ergibt Werte von 2 bis 20
+	g2 = random.nextInt(diff) + 2; // ergibt Werte von 2 bis diff +1
 
 	h2 = random.nextInt(diff) + 2;
+	//Legt die größe für die Formen fest, legt außerdem die Werte für die Aufgabe fest
 	
-	
+//Legt fest welche Form erstellt wird
 if (was == 0) {
 Rechteck();
 }
@@ -55,19 +52,20 @@ else if (was==2) {
 	g=h;
 Kreis();
 }
+//Legt fest welche Form erstellt wird
 
+//Ermittelt den Mittelpunkt der Form
 mittelx=(int) (x+(0.5*g*scale));
 mittely=(int) (y+(0.5*h*scale));
+//Legt fest welche Form erstellt wird
 
-shapeType=was; // Setze den Typ (0 = Rechteck, 1 = Dreieck)
-//this.add(panel);
+shapeType=was;
 repaint();
 this.setVisible(true);
 addButton(w);
 
-
+// Fuktion von ChatGPT - Legt den Bewegungspath fest siehe MovePanelSmoothThread, der Speedsupplier checkt regelmäßig welches Speed der Gegner grade hat, und lässt ihn sich mit diesem Speed bewegen
 java.util.function.Supplier<Integer> speedSupplier = () -> s;
-
 movePanelSmoothThread(205, 505, speedSupplier, () -> {
     movePanelSmoothThread(205, 205, speedSupplier, () -> {
         movePanelSmoothThread(505, 205, speedSupplier, () -> {
@@ -81,12 +79,14 @@ movePanelSmoothThread(205, 505, speedSupplier, () -> {
         });
     });
 });
+//Fuktion von ChatGPT - Legt den Bewegungspath fest siehe MovePanelSmoothThread, der Speedsupplier checkt regelmäßig welches Speed der Gegner grade hat, und lässt ihn sich mit diesem Speed bewegen
 
 
+//Erstellt die Aufgabe auf dem Gegner
 if (was == 0) {
 	En1 = new JLabel(String.valueOf(g2) + "+" + String.valueOf(h2));
 	En1.setLocation(0, h*scale /2-10);
-	En1.setSize(40, 20);
+	En1.setSize(100, 20);
 	En1.setForeground(Color.WHITE);
 	En1.setOpaque(false);
 	this.add(En1);
@@ -94,7 +94,7 @@ if (was == 0) {
 else if (was == 1) {
 	En1 = new JLabel(String.valueOf(g2));
 	En1.setLocation(0, h*scale /2-10);
-	En1.setSize(40, 20);
+	En1.setSize(100, 20);
 	En1.setForeground(Color.WHITE);
 	En1.setOpaque(false);
 	this.add(En1);
@@ -103,46 +103,48 @@ else if (was == 1) {
 else if (was == 2) {
 	En1 = new JLabel(String.valueOf(g2) + "*" + String.valueOf(h2));
 	En1.setLocation(0, h*scale /2-10);
-	En1.setSize(40, 20);
+	En1.setSize(100, 20);
 	En1.setForeground(Color.WHITE);
 	En1.setOpaque(false);
 	this.add(En1);
 }
+//Erstellt die Aufgabe auf dem Gegner
+
 
 
 
 }
 
 
-public void onButtonClicked(int w) {
+public void onButtonClicked(int w) {//Wenn der Button gedrückt wird, wird das Textfeld angezeigt, wo die Lösung für die Aufgabe reingeschrieben wird.
 	System.out.println(shapeType);
 	Fenster.refreshTextField();
     Tg = new JTextField();
 	this.remove(Tg);
     Tg.setBounds(10, 0, 50, 25);
-    this.add(Tg); // <- wichtig: ohne Layer-Index!
-    this.revalidate(); // <- neu
-    this.repaint();    // <- neu
+    this.add(Tg);
+    this.revalidate();
+    this.repaint(); 
     
     Tg.addActionListener(e -> {
         this.remove(Tg);
         Be.setVisible(true);
         
         if  (this.shapeType == 0) {
-            if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
-                Container parent = this.getParent(); // <-- wichtiger Fix
-                if (parent != null) {
+            if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){//Checkt nach Enter ob die Eingabe richtig war
+                Container parent = this.getParent();
+                if (parent != null) {// removed den Gegner wenn er besiegt wurde
                 	if (listener != null) {
-                	    listener.onPanelRemoved(this); // << HIER
+                	    listener.onPanelRemoved(this);
                 	}
-                    parent.remove(this); // statt this.remove(this)
+                    parent.remove(this); 
                 }
                 this.defeated = true;
                 Fenster.defeat += 1;
                 GamePanel.setGeld(10);
             }
         }
-        else if (this.shapeType == 1){
+        else if (this.shapeType == 1){//Checkt nach Enter ob die Eingabe richtig war
             if (Integer.parseInt(Tg.getText()) == this.g2 * this.g2){
                 Container parent = this.getParent();
                 if (parent != null) {
@@ -156,7 +158,7 @@ public void onButtonClicked(int w) {
                 GamePanel.setGeld(20);
             }
         }
-        else if (this.shapeType == 2) {
+        else if (this.shapeType == 2) {//Checkt nach Enter ob die Eingabe richtig war
             if (Integer.parseInt(Tg.getText()) == this.g2 * this.h2){
                 Container parent = this.getParent();
                 if (parent != null) {
@@ -177,7 +179,7 @@ public void onButtonClicked(int w) {
     Tg.requestFocus();
 }
 
-public void addButton(int w) {
+public void addButton(int w) {//Fügt den Button wieder hinzu, relevant, wenn die Eingabe falsch war oder wenn ein anderer Gegner fokusiert wird
 Be = new JButton();
 Be.setLayout(null);
 Be.setSize(g*scale, h*scale);
@@ -190,7 +192,7 @@ Be.setBorderPainted(false);
 this.add(Be);
 
 
-Be.addActionListener(e -> {
+Be.addActionListener(e -> {//Ruft onButtonClicked auf, wenn der Button gedrückt wurde
 if (listener != null) {
 onButtonClicked(w); // Event auslösen
 }
@@ -201,10 +203,11 @@ this.repaint();
 
 }
 
+// Legt die grafischen Werte für das hintergrundpanel fest
 public void Rechteck() {
 this.setLayout(null);
-this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
-this.setOpaque(false); // Hiermit machen wir das Panel transparent
+this.setBackground(Color.BLACK);
+this.setOpaque(false);
 this.setSize(g * 100, h * 100);
 this.setLocation(x, y);
 }
@@ -224,9 +227,11 @@ public void Kreis() {
 	this.setSize(g * 100, h * 100);
 	this.setLocation(x, y);
 }
+// Legt die grafischen Werte für das hintergrundpanel fest
+
 
 @Override
-protected void paintComponent(Graphics g) {
+protected void paintComponent(Graphics g) {//Zeichnet die Objekte Visuell
 super.paintComponent(g); // Ruft paintComponent von JPanel auf, um das Panel zu initialisieren
 
 if (shapeType == 0) {
@@ -248,7 +253,7 @@ else if (shapeType == 2) {
 }
 }
 
-private void movePanelSmoothThread(int targetX, int targetY, java.util.function.Supplier<Integer> speedSupplier, Runnable onComplete) {
+private void movePanelSmoothThread(int targetX, int targetY, java.util.function.Supplier<Integer> speedSupplier, Runnable onComplete) {// Sorgt dafür, dass die Gegner sich smooth bewegen, ist von ChatGPT, gegeben ist Zielposition und Speed, und das Objekt bewegt sich dorthin, prüft auch ob die Objekte im Ziel sind und zieht dann leben ab
     new Thread(() -> {
         while (x != targetX || y != targetY) {
 
@@ -292,21 +297,24 @@ private void movePanelSmoothThread(int targetX, int targetY, java.util.function.
     }).start();
 }
 
-public void setPanelListener(PanelListener listener) {
+public void setPanelListener(PanelListener listener) {//Gibt anderen Klassen über implements die möglichkeit auf Events aus Form zu reagieren
 this.listener = listener;
 }
 
 // Interface für das Event
-public interface PanelListener {
+public interface PanelListener {// andere lönnen jetzt reagieren, wenn onButtonClicked oder onPanelRemoved aufgerufen werden
 void onButtonClicked(int w);
-
 void onPanelRemoved(Form form);
 }
 
 @Override
+public void windowClosing(WindowEvent e) {//Bricht alles ab, wenn X gedrückt wird
+System.exit(0);
+}
+
+//Sinnlose must have Funktionen
+@Override
 public void actionPerformed(ActionEvent e) {
-
-
 
 }
 
@@ -314,11 +322,6 @@ public void actionPerformed(ActionEvent e) {
 public void windowOpened(WindowEvent e) {
 // TODO Auto-generated method stub
 
-}
-
-@Override
-public void windowClosing(WindowEvent e) {
-System.exit(0);
 }
 
 @Override
@@ -350,8 +353,10 @@ public void windowDeactivated(WindowEvent e) {
 // TODO Auto-generated method stub
 
 }
+//Sinnlose must have Funktionen
 
-public void refresh() {
+
+public void refresh() {//Wenn grad ein Textfeld da ist wird diesen durch den Button ersetzt, (damit immer nur ein Gegner im Fokus ist)
 	if (Tg != null) {
 	this.remove(Tg);
 	addButton(0);

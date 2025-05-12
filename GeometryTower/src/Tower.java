@@ -12,11 +12,11 @@ public class Tower extends JPanel{
 	public int typ=0;
 	
 
-	public Tower(int typ, int posx, int posy) {
+	public Tower(int typ, int posx, int posy) { //Es wird wenn der Tower gekauft wird mitgegeben, welcher Tower geplaced wird (gibt nur Eistower) und wo der Tower steht
 		this.typ=typ;
 		
-		if (typ == 0) {
-			Minus(posx, posy);
+		if (typ == 0) { // Hier wäre erweiterbar, Plustower usw.
+			Minus(posx, posy); 
 			}
 		repaint();
 		this.setVisible(true);
@@ -24,15 +24,14 @@ public class Tower extends JPanel{
 		
 	}
 	
-	public void Minus(int posx, int posy) {	//Minus tower panel und minus zeichen
+	public void Minus(int posx, int posy) {	//Erstellt den Minus Tower
 		this.setLayout(null);
-		this.setBackground(Color.BLACK); // Das schwarze Hintergrund muss hier nicht mehr sein
-		this.setOpaque(false); // Hiermit machen wir das Panel transparent
-		this.setSize(radius , radius ); // Panelgröße etwas größer als der Kreis
+		this.setBackground(Color.BLACK);
+		this.setOpaque(false);
+		this.setSize(radius , radius ); // Kreis, kein Oval
 		this.setLocation(posx, posy);
-		//System.out.println(posy);
 		
-		En1 = new JLabel("-");
+		En1 = new JLabel("-"); // Setzt ein - in den Tower
 		En1.setLocation(((radius-10)/2),(radius-15)/2);
 		En1.setSize(10, 10);
 		En1.setForeground(Color.WHITE);
@@ -42,9 +41,8 @@ public class Tower extends JPanel{
 		
 	}
 
-	protected void paintComponent(Graphics g) {		//Blauer kreis wird auf minuspanel gezeichnet
+	protected void paintComponent(Graphics g) {		//Zeichnet den Kreis, das grafische Element zum Tower
 		super.paintComponent(g); // Ruft paintComponent von JPanel auf, um das Panel zu initialisieren
-		
 		if (typ == 0) {
 		    // Kreis zeichnen, wenn shapeType == 2
 		    g.setColor(Color.BLUE); // Setze die Farbe des Kreises auf türkis
