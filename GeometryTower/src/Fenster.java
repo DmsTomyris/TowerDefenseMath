@@ -49,6 +49,8 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         this.setUndecorated(false);
         this.setLayout(null);
         this.setSize(framewidth, frameheight);
+        
+        random = new Random();
 
         Schliessen = true;
 
