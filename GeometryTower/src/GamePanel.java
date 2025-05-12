@@ -80,6 +80,7 @@ public void resetTowerFlag() {
 
 public static void setLeben(int schaden) {
 GamePanel.leben -= schaden;
+if (GamePanel.leben <= 0) verloren();
 lebenLabel.setText("Leben: " + GamePanel.leben);
 }
 
@@ -94,6 +95,10 @@ return leben;
 
 public int getGeld() {
 return geld;
+}
+
+public static void verloren() {
+	Fenster.defeat_screen();
 }
 
 }

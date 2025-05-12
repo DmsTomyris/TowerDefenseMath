@@ -113,7 +113,20 @@ else if (was == 2) {
 
 }
 
+public void Tod() {
+	Container parent = this.getParent(); // <-- wichtiger Fix
+    if (parent != null) {
+    	if (listener != null) {
+    	    listener.onPanelRemoved(this); // << HIER
+    }
+    	parent.remove(this); // statt this.remove(this)	
+    }
+	
+	
+}
+
 public void onButtonClicked(int w) {
+	System.out.println(shapeType);
 	Fenster.refreshTextField();
     Tg = new JTextField();
 	this.remove(Tg);
@@ -125,7 +138,7 @@ public void onButtonClicked(int w) {
     Tg.addActionListener(e -> {
         this.remove(Tg);
         Be.setVisible(true);
-        if (Tg.getText()!="") {
+        
         if  (this.shapeType == 0) {
             if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
                 Container parent = this.getParent(); // <-- wichtiger Fix
@@ -139,7 +152,7 @@ public void onButtonClicked(int w) {
                 Fenster.defeat += 1;
                 GamePanel.setGeld(10);
             }
-        }}
+        }
         else if (this.shapeType == 1){
             if (Integer.parseInt(Tg.getText()) == this.g2 * this.g2){
                 Container parent = this.getParent();

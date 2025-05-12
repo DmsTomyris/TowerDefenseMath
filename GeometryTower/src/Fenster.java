@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
 import java.util.Random;
@@ -40,6 +42,11 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
 	int gegner_insgesamt = 0; //für endlosmodus besiegte gegner
 
     JLayeredPane layeredPane = getLayeredPane();
+    
+    static JLabel defeatLabel = new JLabel("Du hast verloren");
+    static JPanel defeatPanel = new JPanel();
+    static JPanel defeatPanelBackground = new JPanel();
+    static JButton btnStartMenu = new JButton("Menu");
 
     public Fenster(String titel, int level) {
         super(titel);
@@ -55,7 +62,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         Schliessen = true;
 
         GamePanel gamePanel = new GamePanel(this);
-        layeredPane.add(gamePanel, Integer.valueOf(2));
+        layeredPane.add(gamePanel, Integer.valueOf(10));
 
         // Add mouse listener for left-clicks
         this.addMouseListener(new MouseAdapter() {
@@ -87,14 +94,14 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
             }
         });
 
-        JButton btnStartMenu = new JButton("Menu");
+        
         btnStartMenu.setBounds(10, 10, 100, 20);
         btnStartMenu.setOpaque(false);
         btnStartMenu.addActionListener(e -> {
             cleanup(); // Ensure cleanup is called before disposing
             SwingUtilities.getWindowAncestor(btnStartMenu).dispose();
         });
-        layeredPane.add(btnStartMenu, Integer.valueOf(5));
+        layeredPane.add(btnStartMenu, Integer.valueOf(8));
 
         // Hintergrundbild in JPanel setzen
         JPanel backgroundPanel = new JPanel(null); // Absolutes Layout
@@ -127,11 +134,25 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         bubblePanel.setOpaque(false); // macht das Panel durchsichtig
         bubblePanel.add(bubbleLabel);
 
-        JLabel warnLabel = new JLabel("<html>Schnell! Drücke auf ein Viereck!<br>Du besiegst es, indem du die Aufgabe ausrechnest!<br>Multipliziere die beiden Zahlen!</html>");
+        JLabel warnLabel = new JLabel("<html>Schnell! Drücke auf ein Viereck!<br>Du besiegst es, indem du die Aufgabe ausrechnest!<br>Addiere die beiden Zahlen!</html>");
         warnLabel.setBounds(800, 230, 400, 120); // Position und Größe
         warnLabel.setFont(new Font("Arial", Font.BOLD, 24));
         warnLabel.setOpaque(true); // Hintergrund sichtbar machen (optional)
         warnLabel.setBackground(java.awt.Color.WHITE); // z. B. für Sichtbarkeit
+        
+        
+    	defeatLabel.setBounds(0, 0, 0, 0); // gleiche Größe, gleiche Position
+    	defeatLabel.setFont(new Font("Arial", Font.BOLD, 40)); // Schriftart, Stil und Größe setzen
+    	defeatLabel.setHorizontalAlignment(SwingConstants.LEFT);
+    	defeatLabel.setVerticalAlignment(SwingConstants.TOP);
+    	layeredPane.add(defeatLabel, Integer.valueOf(7)); // Tower in Ebene 3 hinzufügen
+    	
+    	defeatPanel.setBounds(0, 0, 0, 0); // gleiche Größe, gleiche Position
+    	layeredPane.add(defeatPanel, Integer.valueOf(6)); // Tower in Ebene 3 hinzufügen
+    	
+    	defeatPanelBackground.setBounds(0, 0, 0, 0); // gleiche Größe, gleiche Position
+    	defeatPanelBackground.setBackground(Color.BLACK);  // Hintergrundfarbe auf Schwarz setzen
+    	layeredPane.add(defeatPanelBackground, Integer.valueOf(5)); // Tower in Ebene 3 hinzufügen
 
 
 
@@ -213,6 +234,9 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                     tutorialWatcher.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
+                            	layeredPane.add(eulePanel, Integer.valueOf(0));
+                                layeredPane.add(bubblePanel, Integer.valueOf(0));
+                                layeredPane.add(warnLabel, Integer.valueOf(0));
                                 defeat += 1;}
                             if (defeat == 6) {
                                 defeat += 1;
@@ -240,6 +264,9 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                     tutorialWatcher.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
+                            	layeredPane.add(eulePanel, Integer.valueOf(0));
+                                layeredPane.add(bubblePanel, Integer.valueOf(0));
+                                layeredPane.add(warnLabel, Integer.valueOf(0));
                                 defeat += 1;}
                             if (defeat == 8) {
                                 defeat += 1;
@@ -267,6 +294,9 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                     tutorialWatcher.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
+                            	layeredPane.add(eulePanel, Integer.valueOf(0));
+                                layeredPane.add(bubblePanel, Integer.valueOf(0));
+                                layeredPane.add(warnLabel, Integer.valueOf(0));
                                 defeat += 1;}
                             if (defeat == 11) {
                                 defeat += 1;
@@ -294,6 +324,9 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                     tutorialWatcher.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
+                            	layeredPane.add(eulePanel, Integer.valueOf(0));
+                                layeredPane.add(bubblePanel, Integer.valueOf(0));
+                                layeredPane.add(warnLabel, Integer.valueOf(0));
                                 defeat += 1;}
                             if (defeat == 11) {
                                 defeat += 1;
@@ -321,6 +354,9 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                     tutorialWatcher.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
+                            	layeredPane.add(eulePanel, Integer.valueOf(0));
+                                layeredPane.add(bubblePanel, Integer.valueOf(0));
+                                layeredPane.add(warnLabel, Integer.valueOf(0));
                                 defeat += 1;}
                             if (defeat == 13) {
                                 defeat += 1;
@@ -431,6 +467,13 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
         defeat=0;
         layeredPane.revalidate();
         layeredPane.repaint();
+    }
+    
+    public static void defeat_screen() {
+    	defeatLabel.setBounds(600, 300, 500, 500); // gleiche Größe, gleiche Position    	
+    	defeatPanel.setBounds(100, 100, 1300, 600); // gleiche Größe, gleiche Position
+    	defeatPanelBackground.setBounds(0, 0, 2000, 1000); // gleiche Größe, gleiche Position
+    	btnStartMenu.setBounds(610, 400, 280, 50);
     }
 
     private void startAutoRefresh() {
