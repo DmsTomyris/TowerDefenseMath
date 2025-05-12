@@ -1,7 +1,5 @@
 import javax.swing.*;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Window;
 import java.awt.event.*;
 import java.util.Random;
 
@@ -28,8 +26,6 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
     public static int start = 0;
 
     private Random random;
-
-    private GamePanel gamePanel; // Reference to GamePanel
 
     public static int[][] towerpos = new int[1][2];
     public static int towerzahl = 0;
