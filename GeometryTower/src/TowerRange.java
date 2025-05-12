@@ -1,21 +1,13 @@
-import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
-public class TowerRange extends JPanel implements WindowListener, ActionListener{
+public class TowerRange extends JPanel{
 	public static int range=500; //reichweite vom tower
-	private PanelListener listener; // Interface für die Kommunikation
 
 
 	public TowerRange(int range, int posx, int posy) {
@@ -24,7 +16,6 @@ public class TowerRange extends JPanel implements WindowListener, ActionListener
 		this.setOpaque(false);// Hiermit machen wir das Panel transparent
 		this.setSize(range + 10, range + 10); // Panelgröße etwas größer als der Kreis
 		this.setLocation(posx, posy);
-//		System.out.println(posy);
 		repaint();
 		this.setVisible(true);
 	}
@@ -42,71 +33,5 @@ public class TowerRange extends JPanel implements WindowListener, ActionListener
 	        g2d.setColor(Color.WHITE);
 	        g2d.setStroke(new BasicStroke(3)); // Randbreite auf 3 Pixel setzen
 	        g2d.drawOval(0, 0, TowerRange.range, TowerRange.range); // Kreis: x, y, Breite, Höhe
-    }
+    }}
 	
-	
-	public void destroyRange() {
-		Container parent = this.getParent(); // <-- wichtiger Fix
-        if (parent != null) {
-        	if (listener != null) {
-        	    listener.onPanelRemoved(this); // << HIER
-        	}
-            parent.remove(this); // statt this.remove(this)
-        }
-	}
-	
-	public interface PanelListener {
-		void onButtonClicked(int w);
-
-		void onPanelRemoved(TowerRange towerRange);
-		}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-}
