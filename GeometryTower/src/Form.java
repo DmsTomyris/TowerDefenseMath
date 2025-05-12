@@ -28,12 +28,9 @@ public boolean defeated = false;
 
 private int s = 10; //speed
 
-public int shapeType = 0; // 0 für Rechteck, 1 für Dreieck
-
+public int shapeType = 0; // 0 für Rechteck, 1 für Dreieck, 2 für Kreis
 
 private PanelListener listener; // Interface für die Kommunikation
-
-
 
 public Form(int w, int was, int difficutly) {
 	diff = difficutly;
@@ -125,16 +122,11 @@ public void onButtonClicked(int w) {
     this.revalidate(); // <- neu
     this.repaint();    // <- neu
     
-
     Tg.addActionListener(e -> {
-        //System.out.println(Tg.getText() + " " + (this.g2 * this.h2));
         this.remove(Tg);
         Be.setVisible(true);
-        String inhalt = Tg.getText();
-        if (inhalt!="") {
+        if (Tg.getText()!="") {
         if  (this.shapeType == 0) {
-        	System.out.println(Tg.getText());
-        		System.out.println(Tg.getText());
             if (Integer.parseInt(Tg.getText()) == this.g2 + this.h2){
                 Container parent = this.getParent(); // <-- wichtiger Fix
                 if (parent != null) {
@@ -145,8 +137,7 @@ public void onButtonClicked(int w) {
                 }
                 this.defeated = true;
                 Fenster.defeat += 1;
-                System.out.println(Fenster.defeat);
-                GamePanel.setGeld(100);
+                GamePanel.setGeld(10);
             }
         }}
         else if (this.shapeType == 1){
@@ -160,7 +151,6 @@ public void onButtonClicked(int w) {
                 }
                 this.defeated = true;
                 Fenster.defeat += 1;
-                System.out.println(Fenster.defeat);
                 GamePanel.setGeld(20);
             }
         }
@@ -184,7 +174,6 @@ public void onButtonClicked(int w) {
     });
     Tg.requestFocus();
 }
-
 
 public void addButton(int w) {
 Be = new JButton();
@@ -312,7 +301,6 @@ void onButtonClicked(int w);
 void onPanelRemoved(Form form);
 }
 
-
 @Override
 public void actionPerformed(ActionEvent e) {
 
@@ -366,7 +354,6 @@ public void refresh() {
 	this.remove(Tg);
 	addButton(0);
 	}
-	//onButtonClicked(0);
 	
 }
 
