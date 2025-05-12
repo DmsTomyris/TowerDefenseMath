@@ -36,6 +36,12 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
     public static boolean Schliessen = false;
 
     public static Tower[] tower = new Tower[1];
+    
+    
+    int gegner = 6; // für Endlosmodus, startgegner
+	int arten = 1; // für Endlosmodus, startgegnerarten
+	int zahlenhöhe = 10; //für Endlosmodus, höhe der Zahlen
+	int gegner_insgesamt = 0; //für endlosmodus besiegte gegner
 
     JLayeredPane layeredPane = getLayeredPane();
 
@@ -344,42 +350,59 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 tutorialWatcher.stop();
                             }}});tutorialWatcher.start();}});initWaveTimer.setRepeats(false);initWaveTimer.start();
         } else if (level == 6) {
+        	gegner = 6;
+        	arten = 1;
+        	zahlenhöhe = 10;
+        	gegner_insgesamt = 6;
             initWaveTimer = new Timer(500, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    GenerateWave(6, 1, 10); // Erste Welle starten
+                	
+                    GenerateWave(gegner, arten, zahlenhöhe); // Erste Welle starten
+                    
                     tutorialWatcher = new Timer(500, null);
                     tutorialWatcher.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             if (defeat == 0 && start == 2) {
                                 defeat += 1;
                             }
-                            if (defeat == 10) {
+                            if (defeat == 1+gegner_insgesamt) {
                                 defeat += 1;
-                                GenerateWave(10, 1, 12);
+                                gegner += 3;
+                            	arten += 1;
+                            	zahlenhöhe += 2;
+                            	gegner_insgesamt = gegner_insgesamt + gegner;
+                            	GenerateWave(gegner, arten, zahlenhöhe);
                             }
-                            if (defeat == 20) {
+                            if (defeat == 2+gegner_insgesamt) {
                                 defeat += 1;
-                                GenerateWave(12, 2, 15);
+                                gegner += 3;
+                            	zahlenhöhe += 2;
+                                gegner_insgesamt = gegner_insgesamt + gegner;
+                                GenerateWave(gegner, arten, zahlenhöhe);
                             }
-                            if (defeat == 30) {
+                            if (defeat == 3+gegner_insgesamt) {
                                 defeat += 1;
-                                GenerateWave(14, 3, 12);
+                                gegner += 3;
+                                if (arten < 3) arten += 1;gegner_insgesamt = gegner_insgesamt + gegner;
+                                GenerateWave(gegner, arten, zahlenhöhe);
                             }
-                            if (defeat == 40) {
+                            if (defeat == 4+gegner_insgesamt) {
                                 defeat += 1;
-                                GenerateWave(16, 3, 14);
+                                gegner += 3;
+                            	zahlenhöhe += 2;
+                                gegner_insgesamt = gegner_insgesamt + gegner;
+                                GenerateWave(gegner, arten, zahlenhöhe);
                             }
-                            if (defeat == 50) {
+                            if (defeat == 5+gegner_insgesamt) {
                                 defeat += 1;
-                                GenerateWave(15, 3, 16);
+                                arten -= 1;
+                                gegner_insgesamt = gegner_insgesamt + gegner;
+                                GenerateWave(gegner, arten, zahlenhöhe);
                             }
-                            if (defeat > 50 && defeat % 10 == 0) {
-                                defeat += 1;
-                                // Increase wave size and count with each cycle
-                                int waveSize = (int) (30 + (defeat / 10) * 2);
-                                int waveType = 3;
-                                int waveCount = (int) (160 + (defeat * 5));
-                                GenerateWave(waveSize, waveType, waveCount);
+                            if (defeat > 50) {
+                                defeat = 10;
+
+                                
                             }
                         }
                     });
@@ -497,7 +520,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
 
     @Override
     public void windowClosing(WindowEvent e) {
- cleanup(); // Ensure cleanup is called before closing
+    	cleanup(); // Ensure cleanup is called before closing
         System.exit(0);
     }
 
