@@ -219,13 +219,13 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                                 defeat += 1;}
                             if (defeat == 6) {
                                 defeat += 1;
-                                GenerateWave(8, 2, 19);}
+                                GenerateWave(8, 2, 12);}
                             if (defeat == 15) {
                                 defeat += 1;
-                                GenerateWave(10, 3, 19);}
+                                GenerateWave(10, 3, 14);}
                             if (defeat == 26) {
                                 defeat += 1;
-                                GenerateWave(15, 3, 19);}
+                                GenerateWave(15, 3, 16);}
                             if (defeat == 42) {
                             	defeat += 1;
                                 warnLabel.setText("<html>Du hast Level 1 geschafft!</html>");
@@ -418,7 +418,7 @@ class Fenster extends JFrame implements WindowListener, ActionListener, Form.Pan
                 }
             }
         }
-
+        defeat=0;
         layeredPane.revalidate();
         layeredPane.repaint();
     }
